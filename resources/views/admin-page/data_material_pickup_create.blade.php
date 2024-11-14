@@ -1,0 +1,177 @@
+@extends('admin-page.layouts.main_layout')
+
+@section('content-pages')
+
+
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row my-2">
+        <div class="col-sm-6">
+          <h3 class="m-0 ml-2">{{ $title}}</h3>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+      <hr style="margin-bottom: 0">
+    </div><!-- /.container-fluid -->
+</div>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="card mx-2 elevation-1 p-3 w-100">
+            <form action="/store-material-pickup" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row mx-2">
+                    @php
+                        $date = isset($material_pickup['date']) ? date('Y-m-d', strtotime($material_pickup['date'])) : date('Y-m-d');
+                        $material_pickup_id = isset($material_pickup['id']) ? $material_pickup['id'] : '';
+                    @endphp
+
+                    <input type="hidden" id="material_pickup_id" name="material_pickup_id" value="{{$material_pickup_id}}" >
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="project_id">ID Proyek</label>
+                        <input type="text" class="form-control @error('project_id')is-invalid @enderror" name="project_id" id="project_id" value="{{ $material_pickup['project_id'] ?? '' }}" required>
+                        @error('project_id')
+                        <small class="invalid-feedback">
+                            Id Proyek {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="spk_number">Nomor SPK</label>
+                        <input type="text" class="form-control @error('spk_number')is-invalid @enderror" name="spk_number" id="spk_number" value="{{ $material_pickup['spk_number'] ?? '' }}" required>
+                        @error('spk_number')
+                        <small class="invalid-feedback">
+                            Nama Operator {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="date">Tanggal Pengambilan</label>
+                        <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" id="date" value="{{ $date }}" required>
+                        @error('date')
+                        <small class="invalid-feedback">
+                            Tanggal Pengambilan {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="project_name">Nama Proyek</label>
+                        <input type="text" class="form-control @error('project_name')is-invalid @enderror" name="project_name" id="project_name" value="{{ $material_pickup['project_name'] ?? '' }}" required readonly>
+                        @error('project_name')
+                        <small class="invalid-feedback">
+                            Nama Proyek {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="contractor_name">Nama Kontraktor</label>
+                        <input type="text" class="form-control @error('contractor_name')is-invalid @enderror" name="contractor_name" id="contractor_name" value="{{ $material_pickup['contractor_name'] ?? '' }}" required readonly>
+                        @error('contractor_name')
+                        <small class="invalid-feedback">
+                            Nama Kontraktor {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="location_project">Lokasi Proyek</label>
+                        <input type="text" class="form-control @error('location_project')is-invalid @enderror" name="location_project" id="location_project" value="{{ $material_pickup['location_project'] ?? '' }}" required readonly>
+                        @error('location_project')
+                        <small class="invalid-feedback">
+                            Lokasi Proyek {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="value_contract">Nilai Kontrak</label>
+                        <input type="text" class="form-control @error('value_contract')is-invalid @enderror" name="value_contract" id="value_contract" value="{{ $material_pickup['value_contract'] ?? '' }}" required readonly>
+                        @error('value_contract')
+                        <small class="invalid-feedback">
+                            Nilai Kontrak {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="value_total_job">Nilai Total Pekerjaan</label>
+                        <input type="text" class="form-control @error('value_total_job')is-invalid @enderror" name="value_total_job" id="value_total_job" value="{{ $material_pickup['value_total_job'] ?? '' }}" required readonly>
+                        @error('value_total_job')
+                        <small class="invalid-feedback">
+                            Nilai Total Pekerjaan {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                        <label for="value_total_material">Nilai Total Material</label>
+                        <input type="text" class="form-control @error('value_total_material')is-invalid @enderror" name="value_total_material" id="value_total_material" value="{{ $material_pickup['value_total_material'] ?? '' }}" required readonly>
+                        @error('value_total_material')
+                        <small class="invalid-feedback">
+                            Nilai Total Material {{ $message }}
+                        </small>
+                        @enderror
+                    </div>
+
+                </div>
+
+                @if ($material_pickup)
+                    <br>
+                    <h6>Data Material</h6>
+                    <div class="box-table">
+                        <table class="table table-hover table-sm" id="table-material">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%;">Kode Material</th>
+                                    <th>Nama Material</th>
+                                    <th style="width: 8%;">Unit</th>
+                                    <th style="width: 6%; text-align: center;">Quantity</th>
+                                    <th style="width: 4%; text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- load in script  --}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{-- <br>
+                    <h6>Data Material</h6>
+                    <div class="box-table">
+                        <table class="table table-hover table-sm" id="table-material">
+                            <thead>
+                                <tr>
+                                    <th style="width: 7%;">Kode Material</th>
+                                    <th>Nama Material</th>
+                                    <th style="width: 6%;">Unit</th>
+                                    <th style="width: 8%; text-align: center;">Quantity</th>
+                                    <th style="width: 13%; text-align: right">Harga Satuan</th>
+                                    <th style="width: 15%; text-align: right">Jumlah Harga</th>
+                                    <th style="width: 10%; text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div> --}}
+                @endif
+
+                <hr style="margin: 0 22px 20px;">
+                <div class="row justify-content-end mx-3">
+                    <section class="col-lg-4">
+                        <section style="float: right;">
+                            <a href="/material-pickup" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Batal</a>
+                            <button class="btn my-button-save"><i class="far fa-save"></i> Simpan</button>
+                        </section>
+                    </section>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>
+@endsection
