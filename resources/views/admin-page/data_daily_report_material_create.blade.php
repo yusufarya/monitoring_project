@@ -28,7 +28,7 @@
 
                     <input type="hidden" id="daily_report_id" name="daily_report_id" value="{{$dailyReport_id}}" >
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2" hidden>
                         <label for="project_id">ID Proyek</label>
                         <input type="text" class="form-control @error('project_id')is-invalid @enderror" name="project_id" id="project_id" value="{{ $dailyReport['project_id'] ?? '' }}" required>
                         @error('project_id')

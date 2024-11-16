@@ -28,7 +28,7 @@
 
                     <input type="hidden" id="material_pickup_id" name="material_pickup_id" value="{{$material_pickup_id}}" >
 
-                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
+                    <div class="col-lg-4 col-md-4 col-sm-4 mt-2" hidden>
                         <label for="project_id">ID Proyek</label>
                         <input type="text" class="form-control @error('project_id')is-invalid @enderror" name="project_id" id="project_id" value="{{ $material_pickup['project_id'] ?? '' }}" required>
                         @error('project_id')
