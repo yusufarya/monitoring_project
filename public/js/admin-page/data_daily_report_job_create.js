@@ -180,7 +180,7 @@ function getJobOfDailyReport() {
 
         // jumlah harga (qty*harga satuan per item) / nilai total pekerjaan
         let value_total_job = $('#value_total_job').val()
-        let weight = (qty_job*price_job) / value_total_job
+        let weight = (qty_job*price_job) / value_total_job * 100
         console.log(weight)
         $('#weight').val(parseFloat(weight).toFixed(2))
     })
