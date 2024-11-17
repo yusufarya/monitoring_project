@@ -55,22 +55,32 @@ class MaterialBalanceController extends Controller {
 
         // Get material balance data with joins
         $balanceData = DB::table('projects as p')
-            ->join('material_pickups as mp', 'mp.project_id', '=', 'p.id')
-            ->join('material_pickup_details as mpd', 'mpd.material_pickup_id', '=', 'mp.id')
-            ->join('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
-            ->join('daily_material_report_details as dmrd', 'dmrd.daily_report_id', '=', 'dmr.id')
+            ->join('t_materials as tm', 'tm.project_id', '=', 'p.id')
+            ->leftJoin('material_pickups as mp', 'mp.project_id', '=', 'p.id')
+            ->leftJoin('material_pickup_details as mpd', function($join) {
+                $join->on('mpd.material_pickup_id', '=', 'mp.id')
+                     ->on('mpd.code', '=', 'tm.code');
+            })
+            ->leftJoin('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
+            ->leftJoin('daily_material_report_details as dmrd', function($join) {
+                $join->on('dmrd.daily_report_id', '=', 'dmr.id')
+                     ->on('dmrd.code', '=', 'tm.code');
+            })
             ->select(
-                'mpd.*',
-                'mpd.qty as pickup_qty',
-                'dmrd.qty as daily_qty',
-                DB::raw('CASE WHEN mpd.qty = dmrd.qty THEN "Sesuai" ELSE "Tidak Sesuai" END as status'),
-                'p.*'
+                'tm.code',
+                'tm.name',
+                'tm.unit',
+                'tm.qty as total_qty',
+                DB::raw('COALESCE(SUM(mpd.qty), 0) as pickup_qty'),
+                DB::raw('COALESCE(SUM(dmrd.qty), 0) as daily_qty'),
+                DB::raw('CASE
+                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "Sesuai"
+                    ELSE "Tidak Sesuai"
+                END as status')
             )
-            ->distinct()
+            ->groupBy('tm.code', 'tm.name', 'tm.unit', 'tm.qty')
             ->where('p.id', $id)
             ->get();
-
-            // Add note with pickup and daily quantities
         foreach($balanceData as $data) {
             $data->note = "Diambil: {$data->pickup_qty}, Digunakan: {$data->daily_qty}";
         }

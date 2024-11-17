@@ -154,8 +154,10 @@ function getMaterialOfProject() {
                                 <td style="padding: 0 5px;">${dataMaterial.code}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.name}</td>
                                 <td style="padding: 0 5px; text-align:center;">${dataMaterial.unit}</td>
+                                <td style="padding: 0 5px; text-align:center;">${dataMaterial.total_qty}</td>
+                                <td style="padding: 0 5px; text-align:center;">${dataMaterial.pickup_qty}</td>
+                                <td style="padding: 0 5px; text-align:center;">${dataMaterial.daily_qty}</td>
                                 <td style="padding: 0 5px; text-align:center;">${dataMaterial.status}</td>
-                                <td style="padding: 0 5px; text-align:left;">${dataMaterial.note}</td>
                             </tr>`
                         // total_qty += dataMaterial.qty
                     });

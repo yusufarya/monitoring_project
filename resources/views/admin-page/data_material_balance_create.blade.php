@@ -130,9 +130,11 @@
                                     <th style="width: 10%;">Kode Material</th>
                                     <th>Nama Material</th>
                                     <th style="width: 5%; text-align: center;">Unit</th>
-                                    {{-- <th style="width: 6%; text-align: center;">Quantity</th> --}}
+                                    <th style="width: 10%; text-align: center;">BOM</th>
+                                    <th style="width: 10%; text-align: center;">Diambil</th>
+                                    <th style="width: 10%; text-align: center;">Terinstall</th>
                                     <th style="width: 10%; text-align: center;">Status</th>
-                                    <th style="width: 30%; text-align: left;">Catatan</th>
+                                    {{-- <th style="width: 30%; text-align: left;">Catatan</th> --}}
                                     {{-- <th style="width: 10%; text-align: center;">Aksi</th> --}}
                                 </tr>
                             </thead>
