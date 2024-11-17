@@ -70,11 +70,11 @@ function getJobOfProject() {
     }
 
     html += `<tr>
-                <td><input type="text" class="form-control" id="code_job" name="code_job" style="width: 100%;"></td>
+                <td><input type="text" class="form-control" id="code_job" name="code_job" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_job" name="name_job" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_job" name="unit_job" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="qty_job" name="qty_job" style="width: 100%;" autocomplete="off"></td>
-                <td><input type="text" class="form-control" id="price_job" name="price_job" style="width: 100%;" readonly></td>
+                <td><input type="text" class="form-control" id="price_job" name="price_job" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="total_price_job" name="total_price_job" style="width: 100%;" readonly></td>
                 <td style="width: 10%; text-align: center;">
                     <button type="button" class="btn btn-sm btn-info px-2" id="add_job">
@@ -252,11 +252,11 @@ function getMaterialOfProject() {
     }
 
     html += `<tr>
-                <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;"></td>
+                <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_material" name="name_material" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_material" name="unit_material" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="qty_material" name="qty_material" style="width: 100%;" autocomplete="off"></td>
-                <td><input type="text" class="form-control" id="price_material" name="price_material" style="width: 100%;" readonly></td>
+                <td><input type="text" class="form-control" id="price_material" name="price_material" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="total_price_material" name="total_price_material" style="width: 100%;" readonly></td>
                 <td style="width: 10%; text-align: center;">
                     <button type="button" class="btn btn-sm btn-info px-2" id="add_material">
