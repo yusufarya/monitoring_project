@@ -141,7 +141,7 @@
                         <p>Pengambilan Material</p>
                     </a>
                 </li>
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a href="/job-balance" class="nav-link {{ Request::segment(1) === 'job-balance' || Request::segment(1) === 'form-job-balance'    ? 'menu-active' : '' }}">
                         <i class="nav-icon fas fa-file"></i>
                         <p>Rekap Pekerjaan</p>
@@ -152,11 +152,11 @@
                         <i class="nav-icon fas fa-file"></i>
                         <p>Rekap Material</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item ">
                     <a href="/recapitulation" class="nav-link {{ Request::segment(1) === 'recapitulation' ? 'menu-active' : '' }}">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Rekapitulasi</p>
+                        <p>Rekapitulasi Rekapitulasi Data</p>
                     </a>
                 </li>
                 @endif

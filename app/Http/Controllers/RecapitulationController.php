@@ -20,7 +20,7 @@ class RecapitulationController extends Controller
         $projectData = M_Project::get();
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Daftar Proyek',
+            'title' => 'Laporan Rekapitulasi Data',
             'auth_user' => $data,
             'projectData' => $projectData
         ]);
