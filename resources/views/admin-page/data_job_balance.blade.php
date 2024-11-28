@@ -26,7 +26,7 @@
             </div>
           @endif
           <div class="row justify-content-end mb-2 w-100">
-            <a href="/form-job-daily-report" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
+            <a href="/form-job-balance" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -36,6 +36,7 @@
                       <th>Nama Proyek</th>
                       <th>Tanggal</th>
                       <th>Nama Kontraktor</th>
+                      <th>Status</th>
                       <th style="width: 10%; text-align: center;">Aksi</th>
                   </tr>
               </thead>
@@ -50,10 +51,9 @@
                       <td>{{ $row->project_name }}</td>
                       <td>{{ date('d/m/Y', strtotime($row->date)) }}</td>
                       <td>{{ $row->contractor_name }}</td>
+                      <td>{{ $row->status }}</td>
                       <td style=" text-align: center;">
-                        <a href="/generate-daily-job/{{$row->id}}" target="blank" class="text-info"><i class="fas fa-print"></i></a>
-                        &nbsp;
-                        <a href="/form-job-daily-report/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
+                        <a href="/form-job-balance/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
                         <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->project_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>
                       </td>

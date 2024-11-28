@@ -53,6 +53,8 @@
                       <td>{{ $row->end_date }}</td>
                       <td>{{ $row->contractor_name }}</td>
                       <td style=" text-align: center;">
+                        <a href="/generate-proyek/{{$row->id}}" target="blank" class="text-info"><i class="fas fa-print"></i></a>
+                        &nbsp;
                         <a href="/form-project/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
                         <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->project_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>

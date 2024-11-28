@@ -14,10 +14,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class MaterialBalanceController extends Controller {
+class JobBalanceController extends Controller {
 
     function index() {
-        $filename = 'data_material_balance';
+        $filename = 'data_job_balance';
         $filename_script = getContentScript(true, $filename);
         $data = Auth::guard('web')->user();
 
@@ -33,7 +33,7 @@ class MaterialBalanceController extends Controller {
 
     function formMaterialBalance($id = null) {
 
-        $filename = 'data_material_balance_create';
+        $filename = 'data_job_balance_create';
         $filename_script = getContentScript(true, $filename);
 
         $data = Auth::guard('web')->user();
@@ -53,18 +53,13 @@ class MaterialBalanceController extends Controller {
     function detailMaterialBalance(Request $request) {
         $id = $request['project_id'];
 
-        // Get material balance data with joins
+        // Get job balance data with joins
         $balanceData = DB::table('projects as p')
-            ->join('t_materials as tm', 'tm.project_id', '=', 'p.id')
-            ->leftJoin('material_pickups as mp', 'mp.project_id', '=', 'p.id')
-            ->leftJoin('material_pickup_details as mpd', function($join) {
-                $join->on('mpd.material_pickup_id', '=', 'mp.id')
-                     ->on('mpd.code', '=', 'tm.code');
-            })
-            ->leftJoin('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
-            ->leftJoin('daily_material_report_details as dmrd', function($join) {
-                $join->on('dmrd.daily_report_id', '=', 'dmr.id')
-                     ->on('dmrd.code', '=', 'tm.code');
+            ->join('t_jobs as tm', 'tm.project_id', '=', 'p.id')
+            ->leftJoin('daily_job_reports as djr', 'djr.project_id', '=', 'p.id')
+            ->leftJoin('daily_job_report_details as djrd', function($join) {
+                $join->on('djrd.daily_report_id', '=', 'djr.id')
+                     ->on('djrd.code', '=', 'tm.code');
             })
             ->select(
                 'tm.code',
@@ -72,9 +67,9 @@ class MaterialBalanceController extends Controller {
                 'tm.unit',
                 'tm.qty as total_qty',
                 DB::raw('COALESCE(SUM(mpd.qty), 0) as pickup_qty'),
-                DB::raw('COALESCE(SUM(dmrd.qty), 0) as daily_qty'),
+                DB::raw('COALESCE(SUM(djrd.qty), 0) as daily_qty'),
                 DB::raw('CASE
-                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "Sesuai"
+                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(djrd.qty), 0) THEN "Sesuai"
                     ELSE "Tidak Sesuai"
                 END as status')
             )
@@ -82,7 +77,7 @@ class MaterialBalanceController extends Controller {
             ->where('p.id', $id)
             ->get();
         foreach($balanceData as $data) {
-            $data->note = "Diambil: {$data->pickup_qty}, Digunakan: {$data->daily_qty}";
+            $data->note = "Dikerjakan: {$data->daily_qty}";
         }
 
         if($balanceData) {
@@ -96,20 +91,12 @@ class MaterialBalanceController extends Controller {
         // dd($request->all());
         if($request->balance_id) {
             $request->merge(['status' => 'Closed']);
-            $result = M_BalanceReport::find($request->balance_id)->update($request->except('balance_id', 'value_contract', 'value_total_job', 'value_total_material') + [
-                'value_contract' => cleanForPrice($request->value_contract),
-                'value_total_job' => cleanForPrice($request->value_total_job),
-                'value_total_material' => cleanForPrice($request->value_total_material)
-            ]);
+            $result = M_BalanceReport::find($request->balance_id)->update($request->except('balance_id'));
             // dd($result);
             return redirect('/material-balance/');
         } else {
             $request->merge(['status' => 'Pending']);
-            $result = M_BalanceReport::create($request->except('balance_id', 'value_contract', 'value_total_job', 'value_total_material') + [
-                'value_contract' => cleanForPrice($request->value_contract),
-                'value_total_job' => cleanForPrice($request->value_total_job),
-                'value_total_material' => cleanForPrice($request->value_total_material)
-            ]);
+            $result = M_BalanceReport::create($request->except('balance_id'));
             return redirect('/form-material-balance/'.$result->id);
         }
     }

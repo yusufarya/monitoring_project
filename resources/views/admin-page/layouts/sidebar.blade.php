@@ -111,18 +111,28 @@
                     </a>
                 </li>
 
-                <li class="nav-item ">
-                    <a href="/job-daily-report" class="nav-link {{ Request::segment(1) === 'job-daily-report' || Request::segment(1) === 'form-job-daily-report' ? 'menu-active' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'job-daily-report' || Request::segment(1) === 'material-daily-report' ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-file"></i>
-                        <p>Data Harian Pekerjaan </p>
+                        <p>
+                            Laporan Harian
+                        <i class="fas fa-angle-right right"></i>
+                        </p>
                     </a>
-                </li>
-
-                <li class="nav-item ">
-                    <a href="/material-daily-report" class="nav-link {{ Request::segment(1) === 'material-daily-report' || Request::segment(1) === 'form-material-daily-report' ? 'menu-active' : '' }}">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>Data Harian Material</p>
-                    </a>
+                    <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="/job-daily-report" class="nav-link {{ Request::segment(1) === 'job-daily-report' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Pekerjaan </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/material-daily-report" class="nav-link {{ Request::segment(1) === 'material-daily-report' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Material </p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item ">
@@ -132,11 +142,23 @@
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a href="/material-balance" class="nav-link {{ Request::segment(1) === 'material-balance' || Request::segment(1) === 'form-material-balance'    ? 'menu-active' : '' }}">
+                    <a href="/job-balance" class="nav-link {{ Request::segment(1) === 'job-balance' || Request::segment(1) === 'form-job-balance'    ? 'menu-active' : '' }}">
                         <i class="nav-icon fas fa-file"></i>
-                        <p>Material Balance</p>
+                        <p>Rekap Pekerjaan</p>
                     </a>
-                    </li>
+                </li>
+                <li class="nav-item ">
+                    <a href="/material-balance" class="nav-link {{ Request::segment(1) === 'material-balance' || Request::segment(1) === 'form-material-balance' ? 'menu-active' : '' }}">
+                        <i class="nav-icon fas fa-file"></i>
+                        <p>Rekap Material</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a href="/recapitulation" class="nav-link {{ Request::segment(1) === 'recapitulation' ? 'menu-active' : '' }}">
+                        <i class="nav-icon fas fa-file-alt"></i>
+                        <p>Rekapitulasi</p>
+                    </a>
+                </li>
                 @endif
 
                 {{-- <li class="nav-header">Laporan</li>

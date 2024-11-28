@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MJobController;
@@ -16,12 +17,14 @@ use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\MMaterialController;
 use App\Http\Controllers\ExportDataController;
 use App\Http\Controllers\FE\ServiceController;
+use App\Http\Controllers\JobBalanceController;
 use App\Http\Controllers\DailyReportJobController;
 use App\Http\Controllers\FE\ParticipantController;
+use App\Http\Controllers\MaterialPickupController;
+use App\Http\Controllers\RecapitulationController;
+use App\Http\Controllers\MaterialBalanceController;
 use App\Http\Controllers\TrainingContentController;
 use App\Http\Controllers\DailyReportMaterialController;
-use App\Http\Controllers\MaterialBalanceController;
-use App\Http\Controllers\MaterialPickupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +84,11 @@ Route::middleware('admin')->group(function () {
     Route::post('/add-new-material', [MMaterialController::class, 'storeJob']);
     Route::put('/edit-new-material', [MMaterialController::class, 'updateJob']);
     Route::delete('/delete-material/{number}', [MMaterialController::class, 'deleteJob']);
+
+    // Generate Pdf Transaction Detail
+    Route::get('/generate-proyek/{id}', [PdfController::class, 'generateProjectPdf']);
+    Route::get('/generate-daily-job/{id}', [PdfController::class, 'generateDailyJobPdf']);
+    Route::get('/generate-daily-material/{id}', [PdfController::class, 'generateDailyMaterialPdf']);
 
     // AJAX //
     Route::get('/get-master-jobs', [MJobController::class, 'getMasterJob']);
@@ -142,12 +150,28 @@ Route::middleware('admin')->group(function () {
     Route::post('/store-material-pickup', [MaterialPickupController::class, 'saveMaterialPickup']);
     Route::delete('/delete-material-pickup/{id}', [MaterialPickupController::class, 'deleteMaterialPickup']);
 
+    // REKAPITULASI DATA //
     // DAFTAR BALANCE MATERIAL //
     Route::get('/material-balance', [MaterialBalanceController::class, 'index']);
     Route::get('/form-material-balance', [MaterialBalanceController::class, 'formMaterialBalance']);
     Route::get('/form-material-balance/{id}', [MaterialBalanceController::class, 'formMaterialBalance']);
     Route::get('/detail-material-balance', [MaterialBalanceController::class, 'detailMaterialBalance']); // AJAX //
     Route::post('/store-material-balance', [MaterialBalanceController::class, 'saveMaterialBalance']);
+
+    // DAFTAR BALANCE PEKERJAAN //
+    Route::get('/job-balance', [JobBalanceController::class, 'index']);
+    Route::get('/form-job-balance', [JobBalanceController::class, 'formMaterialBalance']);
+    Route::get('/form-job-balance/{id}', [JobBalanceController::class, 'formMaterialBalance']);
+    Route::get('/detail-job-balance', [JobBalanceController::class, 'detailMaterialBalance']); // AJAX //
+    Route::post('/store-job-balance', [JobBalanceController::class, 'saveMaterialBalance']);
+
+    Route::get('/recapitulation', [RecapitulationController::class, 'index']);
+    Route::get('/get-recapitulation', [RecapitulationController::class, 'openRecapitulation']);
+    Route::get('/open-recapitulation-job', [RecapitulationController::class, 'generateJobRpt']);
+    Route::get('/open-recapitulation-material', [RecapitulationController::class, 'generateMaterialRpt']);
+
+
+    Route::get('/generate-daily-material/{spk_number}', [PdfController::class, 'generateDailyMaterialPdf']);
 
     Route::post('/logout-admin', [AuthController::class, 'logout']);
 });

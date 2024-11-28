@@ -24,9 +24,9 @@ $(function () {
                     $('#project_name').val(response.project_name)
                     $('#contractor_name').val(response.contractor_name)
                     $('#location_project').val(response.location_project)
-                    $('#value_contract').val(response.value_contract)
-                    $('#value_total_job').val(response.value_total_job)
-                    $('#value_total_material').val(response.value_total_material)
+                    $('#value_contract').val(response.value_contract > 0 ? replaceRupiah(response.value_contract) : 0)
+                    $('#value_total_job').val(response.value_total_job > 0 ? replaceRupiah(response.value_total_job) : 0)
+                    $('#value_total_material').val(response.value_total_material > 0 ? replaceRupiah(response.value_total_material) : 0)
                 }
             },
             error: function(jqXHR, status, error) {
@@ -60,9 +60,9 @@ $(function () {
                     $('#project_name').val(response.project_name)
                     $('#contractor_name').val(response.contractor_name)
                     $('#location_project').val(response.location_project)
-                    $('#value_contract').val(response.value_contract)
-                    $('#value_total_job').val(response.value_total_job)
-                    $('#value_total_material').val(response.value_total_material)
+                    $('#value_contract').val(response.value_contract > 0 ? replaceRupiah(response.value_contract) : 0)
+                    $('#value_total_job').val(response.value_total_job > 0 ? replaceRupiah(response.value_total_job) : 0)
+                    $('#value_total_material').val(response.value_total_material > 0 ? replaceRupiah(response.value_total_material) : 0)
                 }
             },
             error: function(jqXHR, status, error) {
@@ -147,7 +147,7 @@ function getMaterialOfProject() {
                 </tr>`
     }
     html += `<tr>
-                <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;"></td>
+                <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_material" name="name_material" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_material" name="unit_material" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="qty_material" name="qty_material" style="width: 100%;" autocomplete="off"></td>

@@ -24,10 +24,9 @@ $(function () {
                     $('#project_name').val(response.project_name)
                     $('#contractor_name').val(response.contractor_name)
                     $('#location_project').val(response.location_project)
-                    $('#location_project').val(response.location_project)
-                    $('#value_contract').val(response.value_contract)
-                    $('#value_total_job').val(response.value_total_job)
-                    $('#value_total_material').val(response.value_total_material)
+                    $('#value_contract').val(response.value_contract > 0 ? replaceRupiah(response.value_contract) : 0)
+                    $('#value_total_job').val(response.value_total_job > 0 ? replaceRupiah(response.value_total_job) : 0)
+                    $('#value_total_material').val(response.value_total_material > 0 ? replaceRupiah(response.value_total_material) : 0)
                 }
             },
             error: function(jqXHR, status, error) {
@@ -61,10 +60,9 @@ $(function () {
                     $('#project_name').val(response.project_name)
                     $('#contractor_name').val(response.contractor_name)
                     $('#location_project').val(response.location_project)
-                    $('#location_project').val(response.location_project)
-                    $('#value_contract').val(response.value_contract)
-                    $('#value_total_job').val(response.value_total_job)
-                    $('#value_total_material').val(response.value_total_material)
+                    $('#value_contract').val(response.value_contract > 0 ? replaceRupiah(response.value_contract) : 0)
+                    $('#value_total_job').val(response.value_total_job > 0 ? replaceRupiah(response.value_total_job) : 0)
+                    $('#value_total_material').val(response.value_total_material > 0 ? replaceRupiah(response.value_total_material) : 0)
                 }
             },
             error: function(jqXHR, status, error) {

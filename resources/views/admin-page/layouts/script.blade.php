@@ -57,6 +57,26 @@
         $("#submitForm").submit();
     });
 
+    // Format a given value into Rupiah format
+    function replaceRupiah(value) {
+        // Convert the value to string and split into integer and decimal parts
+        const numberString = value.toString();
+        const split = numberString.split('.');
+        const sisa = split[0].length % 3;
+        let rupiah = split[0].substr(0, sisa);
+        const ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // Add separators for thousands
+        if (ribuan) {
+            const separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        // Append the decimal part if it exists
+        rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah + ',00';
+
+        return rupiah;
+    }
 
     function formatRupiah(event, angka, prefix = "") {
         var number_string = angka.replace(/[^,\d]/g, "").toString(),
@@ -76,4 +96,26 @@
         return (event.value =
             prefix == "" ? rupiah : rupiah ? "Rp. " + rupiah : "");
     }
+
+    function clearRupiahFormatting(value) {
+        const originalValue = hasSpecialChars(value)
+
+        if (originalValue) {
+
+            return value.replace(/[^0-9]/g, '')
+        }
+
+        return undefined // Explicitly return undefined if no special characters are found
+    }
+
+    // Method to check if a value contains special characters
+    function hasSpecialChars(value) {
+
+        const specialCharRegex = /[^a-zA-Z0-9]/
+
+        return specialCharRegex.test(value)
+
+    }
+
+
 </script>

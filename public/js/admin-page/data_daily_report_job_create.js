@@ -23,10 +23,9 @@ $(function () {
                     $('#project_name').val(response.project_name)
                     $('#contractor_name').val(response.contractor_name)
                     $('#location_project').val(response.location_project)
-                    $('#location_project').val(response.location_project)
-                    $('#value_contract').val(response.value_contract)
-                    $('#value_total_job').val(response.value_total_job)
-                    $('#value_total_material').val(response.value_total_material)
+                    $('#value_contract').val(response.value_contract > 0 ? replaceRupiah(response.value_contract) : 0)
+                    $('#value_total_job').val(response.value_total_job > 0 ? replaceRupiah(response.value_total_job) : 0)
+                    $('#value_total_material').val(response.value_total_material > 0 ? replaceRupiah(response.value_total_material) : 0)
                 }
             },
             error: function(jqXHR, status, error) {
@@ -80,8 +79,8 @@ function getJobOfDailyReport() {
                                 <td style="padding: 0 5px;">${dataJob.name}</td>
                                 <td style="padding: 0 5px;">${dataJob.unit}</td>
                                 <td style="padding: 0 5px; text-align:center;">${dataJob.qty}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataJob.price}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataJob.total_price}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataJob.price)}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataJob.total_price)}</td>
                                 <td style="padding: 0 5px; text-align:right;">${dataJob.weight}</td>
                                 <td style="width: 10%; text-align: center;">
                                     <button type="button" class="btn btn-sm btn-danger px-2" onclick="deleteItemJob(${dataJob.id})">
@@ -120,7 +119,7 @@ function getJobOfDailyReport() {
     }
 
     html += `<tr>
-                <td><input type="text" class="form-control" id="code_job" name="code_job" style="width: 100%;"></td>
+                <td><input type="text" class="form-control" id="code_job" name="code_job" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_job" name="name_job" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_job" name="unit_job" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="qty_job" name="qty_job" style="width: 100%;" autocomplete="off"></td>
@@ -180,8 +179,8 @@ function getJobOfDailyReport() {
 
         // jumlah harga (qty*harga satuan per item) / nilai total pekerjaan
         let value_total_job = $('#value_total_job').val()
-        let weight = (qty_job*price_job) / value_total_job * 100
-        console.log(weight)
+        let weight = (qty_job*price_job) / clearRupiahFormatting(value_total_job)
+        // console.log(weight)
         $('#weight').val(parseFloat(weight).toFixed(2))
     })
 

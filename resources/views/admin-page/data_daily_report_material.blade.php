@@ -51,6 +51,8 @@
                       <td>{{ date('d/m/Y', strtotime($row->date)) }}</td>
                       <td>{{ $row->contractor_name }}</td>
                       <td style=" text-align: center;">
+                        <a href="/generate-daily-material/{{$row->id}}" target="blank" class="text-info"><i class="fas fa-print"></i></a>
+                        &nbsp;
                         <a href="/form-material-daily-report/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
                         <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->project_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>

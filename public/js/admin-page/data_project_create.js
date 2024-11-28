@@ -44,8 +44,8 @@ function getJobOfProject() {
                                 <td style="padding: 0 5px;">${dataJob.name}</td>
                                 <td style="padding: 0 5px;">${dataJob.unit}</td>
                                 <td style="padding: 0 5px; text-align:center;">${dataJob.qty}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataJob.price}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataJob.total_price}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataJob.price)}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataJob.total_price)}</td>
                                 <td style="width: 10%; text-align: center;">
                                     <button type="button" class="btn btn-sm btn-danger px-2" onclick="deleteJob(${dataJob.id})">
                                         <i class="fas fa-trash"></i>
@@ -224,8 +224,8 @@ function getMaterialOfProject() {
                                 <td style="padding: 0 5px;">${dataMaterial.name}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.unit}</td>
                                 <td style="padding: 0 5px; text-align:center;">${dataMaterial.qty}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataMaterial.price}</td>
-                                <td style="padding: 0 5px; text-align:right;">${dataMaterial.total_price}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataMaterial.price)}</td>
+                                <td style="padding: 0 5px; text-align:right;">${replaceRupiah(dataMaterial.total_price)}</td>
                                 <td style="width: 10%; text-align: center;">
                                     <button type="button" class="btn btn-sm btn-danger px-2" onclick="deleteMaterial(${dataMaterial.id})">
                                         <i class="fas fa-trash"></i>

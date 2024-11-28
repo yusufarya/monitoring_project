@@ -47,10 +47,18 @@ class MaterialPickupController extends Controller
     function saveMaterialPickup(Request $request) {
         // dd($request->all());
         if($request->material_pickup_id) {
-            $result = M_MaterialPickup::find($request->material_pickup_id)->update($request->except('material_pickup_id'));
+            $result = M_MaterialPickup::find($request->material_pickup_id)->update($request->except('material_pickup_id', 'value_contract', 'value_total_job', 'value_total_material') + [
+                'value_contract' => cleanForPrice($request->value_contract),
+                'value_total_job' => cleanForPrice($request->value_total_job),
+                'value_total_material' => cleanForPrice($request->value_total_material)
+            ]);
             return redirect('/material-pickup/');
         } else {
-            $result = M_MaterialPickup::create($request->except('material_pickup_id'));
+            $result = M_MaterialPickup::create($request->except('material_pickup_id', 'value_contract', 'value_total_job', 'value_total_material') + [
+                'value_contract' => cleanForPrice($request->value_contract),
+                'value_total_job' => cleanForPrice($request->value_total_job),
+                'value_total_material' => cleanForPrice($request->value_total_material)
+            ]);
             return redirect('/form-material-pickup/'.$result->id);
         }
     }

@@ -58,13 +58,19 @@ class DailyReportMaterialController extends Controller
     function saveDailyReport(Request $request) {
         // dd($request->all());
         if($request->daily_report_id) {
-            $result = M_DailyMaterialReport::find($request->daily_report_id)->update($request->except('code_material', 'qty_material', 'code_material', 'qty_material') + [
+            $result = M_DailyMaterialReport::find($request->daily_report_id)->update($request->except('code_material', 'qty_job', 'code_material', 'qty_material', 'value_contract', 'value_total_job', 'value_total_material') + [
                 'project_name' => ucwords($request->project_name),
+                'value_contract' => cleanForPrice($request->value_contract),
+                'value_total_job' => cleanForPrice($request->value_total_job),
+                'value_total_material' => cleanForPrice($request->value_total_material)
             ]);
             return redirect('/material-daily-report/');
         } else {
-            $result = M_DailyMaterialReport::create($request->except('code_material', 'qty_material', 'code_material', 'qty_material') + [
+            $result = M_DailyMaterialReport::create($request->except('code_material', 'qty_job', 'code_material', 'qty_material', 'value_contract', 'value_total_job', 'value_total_material') + [
                 'project_name' => ucwords($request->project_name),
+                'value_contract' => cleanForPrice($request->value_contract),
+                'value_total_job' => cleanForPrice($request->value_total_job),
+                'value_total_material' => cleanForPrice($request->value_total_material)
             ]);
             return redirect('/form-material-daily-report/'.$result->id);
         }

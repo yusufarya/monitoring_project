@@ -18,7 +18,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card mx-2 elevation-1 p-3 w-100">
-            <form action="/store-material-balance" method="POST" enctype="multipart/form-data">
+            <form action="/store-job-balance" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row mx-2">
                     @php
@@ -130,9 +130,8 @@
                                     <th style="width: 10%;">Kode Material</th>
                                     <th>Nama Material</th>
                                     <th style="width: 5%; text-align: center;">Unit</th>
-                                    <th style="width: 10%; text-align: center;">BOM</th>
-                                    <th style="width: 10%; text-align: center;">Diambil</th>
-                                    <th style="width: 10%; text-align: center;">Terinstall</th>
+                                    <th style="width: 10%; text-align: center;">BOQ</th>
+                                    <th style="width: 10%; text-align: center;">Terpasang</th>
                                     <th style="width: 10%; text-align: center;">Status</th>
                                     {{-- <th style="width: 30%; text-align: left;">Catatan</th> --}}
                                     {{-- <th style="width: 10%; text-align: center;">Aksi</th> --}}
@@ -168,7 +167,7 @@
                 <div class="row justify-content-end mx-3">
                     <section class="col-lg-4">
                         <section style="float: right;">
-                            <a href="/material-balance" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Batal</a>
+                            <a href="/job-balance" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Batal</a>
                             <button class="btn my-button-save"><i class="far fa-save"></i> Simpan</button>
                         </section>
                     </section>

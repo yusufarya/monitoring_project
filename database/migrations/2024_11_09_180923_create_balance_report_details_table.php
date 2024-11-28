@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('balance_material_details', function (Blueprint $table) {
+        Schema::create('balance_report_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('balance_id');
             $table->string('code', 20);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('status', 100);
             $table->string('note', 200)->nullable();
 
-            $table->foreign('balance_id')->on('balance_materials')->references('id');
+            $table->foreign('balance_id')->on('balance_reports')->references('id');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('balance_material_details');
+        Schema::dropIfExists('balance_report_details');
     }
 };

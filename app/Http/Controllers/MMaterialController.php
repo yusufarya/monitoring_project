@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\M_BalanceMaterialDetail;
+use App\Models\M_BalanceReportDetail;
 use App\Models\M_MMaterial;
 use App\Models\M_TMaterial;
 use App\Models\M_DailyMaterialDetailReport;
@@ -196,7 +196,7 @@ class MMaterialController extends Controller
 
     function saveMaterialBalance(Request $request) {
         $formJob = $request->all();
-        $result = M_BalanceMaterialDetail::create($formJob);
+        $result = M_BalanceReportDetail::create($formJob);
         if($result) {
             return response()->json(['message'=> 'Berhasil Menambahkan Data Material Balance', 'data' => $result], 200);
         } else {
@@ -206,7 +206,7 @@ class MMaterialController extends Controller
 
     function deleteMaterialBalance(Request $request) {
         $idTrJob = $request->id;
-        $result = M_BalanceMaterialDetail::find($idTrJob)->delete();
+        $result = M_BalanceReportDetail::find($idTrJob)->delete();
         if($result) {
             return response()->json(['message'=> 'Berhasil Menghapus Data Material Balance', 'data' => $result], 200);
         } else {
