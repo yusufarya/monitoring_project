@@ -27,7 +27,7 @@
                             <input type="hidden" id="invalid" value="<?= session()->has('failed') ?>">
 
                             <div class="col-lg-7 col-md-7 col-sm-12 mt-2">
-                                <label for="number">Nomor Staff</label>
+                                <label for="number">Nomor ID</label>
                                 <input type="text" class="form-control" name="number" id="number" value="{{getLastNumberStaff()}}" readonly>
                             </div>
 

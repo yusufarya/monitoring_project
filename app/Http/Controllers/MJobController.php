@@ -106,8 +106,11 @@ class MJobController extends Controller
     }
 
     function saveTrJob(Request $request) {
-        $formJob = $request->all();
-        $result = M_TJob::create($formJob);
+        // $formJob = $request->all();
+        $result = M_TJob::create($request->except('price', 'total_price') + [
+            'price' => cleanForPrice($request->price),
+            'total_price' => cleanForPrice($request->total_price),
+        ]);
         if($result) {
             return response()->json(['message'=> 'Berhasil Menambahkan Data Pekerjaan', 'data' => $result], 200);
         } else {
@@ -126,8 +129,11 @@ class MJobController extends Controller
     }
 
     function saveReportJob(Request $request) {
-        $formJob = $request->all();
-        $result = M_DailyJobDetailReport::create($formJob);
+        // $formJob = $request->all();
+        $result = M_DailyJobDetailReport::create($request->except('price', 'total_price') + [
+            'price' => cleanForPrice($request->price),
+            'total_price' => cleanForPrice($request->total_price),
+        ]);
         if($result) {
             return response()->json(['message'=> 'Berhasil Menambahkan Data Pekerjaan', 'data' => $result], 200);
         } else {

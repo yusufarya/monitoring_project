@@ -24,10 +24,10 @@
                     <div class="row">
                         <div class="col">
                             <h1 class="h1 mb-2 pt-2 fw-bold my-color-primary">Masuk</h1>
-                            <small class="ms-1 my-color-secondary"><b> Administrator </b></small>
+                            <small class="ms-1 my-color-secondary"><b> Monitoring Proyek</b></small>
                         </div>
                         <div class="col">
-                            {{-- <img src="{{ asset('img/logo.png') }}" style="height: 100px" class="float-end p-2" alt="logo"> --}}
+                            <img src="{{ asset('img/logo.png') }}" style="height: 120px" class="float-end p-0" alt="logo">
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@
                     {{-- <div class="form-check text-start my-3"></div> --}}
                     <button class="btn my-bg-primary auth-button w-100 py-2 mt-3" type="submit">Masuk</button>
                     {{-- <p class="mt-2 ms-1 text-sm">Belum punya akun <a href="/register-admin"> Daftar disini.</a></p> --}}
-                    <p class="mt-5 mb-3 text-body-secondary">Pelatihan &copy; {{date('Y')}}</p>
+                    <p class="mt-5 mb-3 text-body-secondary">Monitoring Proyek &copy; {{date('Y')}}</p>
                 </form>
             </section>
         </main>

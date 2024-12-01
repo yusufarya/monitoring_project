@@ -25,73 +25,62 @@
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <!-- ./col -->
-      <div class="col-lg-3 col-6">
+      <div class="col-lg-6 col-6">
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{$pendaftarBaru}}</h3>
+            <h3>{{$todayJob}}</h3>
 
-            <p>Data A </p>
+            <p>Jumlah Pekerjaan Hari Ini </p>
           </div>
           <div class="icon">
-            <i class="ion ion-stats-bars"></i>
+            <i class="fas fa-chart-line"></i>
           </div>
-          <a href="/registrant-data" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <div class="col-lg-3 col-6">
+      <div class="col-lg-6 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{$pesertaApprove}}</h3>
+            <h3>{{$todayMaterial}}</h3>
 
-            <p>Data B</p>
+            <p>Jumlah Material Hari Ini</p>
           </div>
           <div class="icon">
-            <i class="ion ion-bag"></i>
+            <i class="fas fa-chart-area"></i>
           </div>
-          <a href="/registrant" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <form id="pesertaLulus" action="participant-passed" method="GET" hidden>
-          @csrf
-          <input type="text" name="passed" id="passed" value="Y">
-        </form>
+      <div class="col-lg-6 col-6">
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>{{$pesertaLulus}}</h3>
+            <h3>{{$todayJobDone}}</h3>
 
-            <p>Data C </p>
+            <p>Pekerjaan Selesai Hari Ini </p>
           </div>
           <div class="icon">
-            <i class="ion ion-person-add"></i>
+            <i class="fas fa-chart-area"></i>
           </div>
-          <a href="#" onclick="pesertaLulus()" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <form id="pesertaTidakLulus" action="participant-passed" method="GET" hidden>
-          @csrf
-          <input type="text" name="passed" id="passed" value="N">
-        </form>
+      <div class="col-lg-6 col-6">
         <!-- small box -->
-        <div class="small-box bg-danger">
+        <div class="small-box bg-primary">
           <div class="inner">
-            <h3>{{$pesertaTidakLulus}}</h3>
+            <h3>{{$todayMaterialDone}}</h3>
 
-            <p>Data D </p>
+            <p>Material Selesai Hari Ini</p>
           </div>
           <div class="icon">
-            <i class="ion ion-pie-graph"></i>
+            <i class="far fa-chart-bar"></i>
           </div>
-          <a href="#" onclick="pesertaTidakLulus()" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <!-- ./col -->
     </div>
     <!-- /.row -->
 
@@ -99,64 +88,33 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
-              <h5 class="card-title">Proyek baru baru ini</h5>
-
-              {{-- <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                    <i class="fas fa-wrench"></i>
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-right" role="menu">
-                    <a href="#" class="dropdown-item">Action</a>
-                    <a href="#" class="dropdown-item">Another action</a>
-                    <a href="#" class="dropdown-item">Something else here</a>
-                    <a class="dropdown-divider"></a>
-                    <a href="#" class="dropdown-item">Separated link</a>
-                  </div>
-                </div>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div> --}}
+              <h5 class="card-title">Proyek hari ini</h5>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <div class="row">
-                {{-- <div class="col-md-8">
-                  <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
-                  </p>
-
-                  <div class="chart">
-                    <!-- Sales Chart Canvas -->
-                    <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
-                  </div>
-                  <!-- /.chart-responsive -->
-                </div> --}}
-                <!-- /.col -->
-                <div class="col-md-12">
-                  <p class="text-center">
-                    {{-- <strong></strong> --}}
-                  </p>
-                  @foreach ($registrant_group as $item)
-                    <div class="progress-group">
-                      <p>
-
-                      </p>
-                      {{ $item->sub_district_name }}
-                      <span class="float-right"><b>{{ $item->count }}</b></span>
-                      <div class="progress progress-sm">
-                        <div class="progress-bar bg-primary" style="width: <?= ($item->count / $countRegistrant)*(1*100) ?>%"></div>
-                      </div>
-                    </div>
-                  @endforeach
-
-                  <!-- /.progress-group -->
-                </div>
-                <!-- /.col -->
+                <table class="table table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>No. Spk</th>
+                            <th>Nama Proyek</th>
+                            <th>Tanggal Mulai</th>
+                            <th>Tanggal Selesai</th>
+                            <th>Nama Kontraktor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($projectData as $row)
+                        <tr>
+                            <td>{{ $row->spk_number }}</td>
+                            <td>{{ $row->project_name }}</td>
+                            <td>{{ $row->start_date }}</td>
+                            <td>{{ $row->end_date }}</td>
+                            <td>{{ $row->contractor_name }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
               </div>
               <!-- /.row -->
             </div>

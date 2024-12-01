@@ -118,7 +118,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="value_contract">Nilai Kontrak</label>
-                        <input type="text" class="form-control @error('value_contract')is-invalid @enderror" name="value_contract" id="value_contract" value="{{ $project['value_contract'] ?? '' }}" required>
+                        <input type="text" class="form-control @error('value_contract')is-invalid @enderror" name="value_contract" id="value_contract" value="{{ isset($project['value_contract']) ? number_format($project['value_contract'],2, ',', '.') : 0 }}" required>
                         @error('value_contract')
                         <small class="invalid-feedback">
                             Nilai Kontrak {{ $message }}

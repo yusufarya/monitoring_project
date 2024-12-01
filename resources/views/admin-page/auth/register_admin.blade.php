@@ -16,10 +16,10 @@
     <body class="d-flex align-items-center py-4 bg-white">
 
         <main class="row">
-            <div class="col-lg-7 col-md-7 col-sm-7 p-5">
-                <img class="hero-img" src="{{asset('img/hero.png')}}" alt="">
+            <div class="col-lg-5 col-md-5 col-sm-5 p-5">
+                <img class="hero-img" src="{{asset('img/logo.png')}}" alt="">
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-5 pe-5">
+            <div class="col-lg-7 col-md-7 col-sm-7 pe-5">
                 <section class="form-register">
                     <input type="hidden" id="valid" value="<?= session()->has('success') ?>">
                     <input type="hidden" id="invalid" value="<?= session()->has('failed') ?>">
@@ -114,7 +114,7 @@
 
                         <button class="btn my-bg-primary auth-button w-100 py-2 mt-2" type="submit">Register</button>
                         <p class="mt-2 ml-2 text-sm">Sudah punya akun ? <a href="/login-admin"> Masuk disini.</a></p>
-                        <p class="mt-5 mb-3 text-body-secondary">Pelatihan &copy; {{date('Y')}}</p>
+                        <p class="mt-5 mb-3 text-body-secondary">Monitoring Proyek &copy; {{date('Y')}}</p>
                     </form>
                 </section>
             </div>

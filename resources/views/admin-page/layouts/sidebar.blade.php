@@ -51,7 +51,7 @@
                     </a>
                 </li>
 
-                @if ($auth_user->level_id == 2)
+                @if ($auth_user->level_id == 3)
                     <li class="nav-item {{ Request::segment(1) === 'data-job' || Request::segment(1) === 'data-material' ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-box"></i>
@@ -101,15 +101,16 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class="nav-item ">
+                        <a href="/project-list" class="nav-link {{ Request::segment(1) === 'project-list' || Request::segment(1) === 'form-project' ? 'menu-active' : '' }}">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Daftar Proyek </p>
+                        </a>
+                    </li>
                 @endif
 
                 @if ($auth_user->level_id == 2)
-                <li class="nav-item ">
-                    <a href="/project-list" class="nav-link {{ Request::segment(1) === 'project-list' || Request::segment(1) === 'form-project' ? 'menu-active' : '' }}">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>Daftar Proyek </p>
-                    </a>
-                </li>
 
                 <li class="nav-item {{ Request::segment(1) === 'job-daily-report' || Request::segment(1) === 'material-daily-report' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link ">
@@ -156,7 +157,7 @@
                 <li class="nav-item ">
                     <a href="/recapitulation" class="nav-link {{ Request::segment(1) === 'recapitulation' ? 'menu-active' : '' }}">
                         <i class="nav-icon fas fa-file-alt"></i>
-                        <p>Rekapitulasi Rekapitulasi Data</p>
+                        <p>Rekapitulasi Data</p>
                     </a>
                 </li>
                 @endif

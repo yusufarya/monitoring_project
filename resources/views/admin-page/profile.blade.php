@@ -40,8 +40,8 @@
             </div>
         </div>
         <div class="col">
-            <div class="p-3 elevation-2 rounded-2">
-                <table class="table mt-2">
+            <div class="p-3 ">
+                <table class="table mt-1">
                     <tr>
                         <td>Telp / Hp</td>
                         <td> {{ $auth_user->no_telp }} </td>

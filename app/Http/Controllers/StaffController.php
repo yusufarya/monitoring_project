@@ -18,7 +18,7 @@ class StaffController extends Controller
         $dataStaff = User::with('user_level')->where('level_id', 2)->get();
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Data Staff',
+            'title' => 'Data Operator',
             'auth_user' => $data,
             'dataStaff' => $dataStaff
         ]);
@@ -33,7 +33,7 @@ class StaffController extends Controller
         $user_level = UserLevel::get();
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Tambah Data Staff',
+            'title' => 'Tambah Data Operator',
             'auth_user' => $data,
             'level_id' => $user_level
         ]);
@@ -86,7 +86,7 @@ class StaffController extends Controller
         $user_level = UserLevel::get();
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Edit Data Staff',
+            'title' => 'Edit Data Operator',
             'auth_user' => $data,
             'data_staff' => $data_staff,
             'level' => $user_level

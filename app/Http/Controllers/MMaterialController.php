@@ -134,8 +134,11 @@ class MMaterialController extends Controller
     }
 
     function saveTrMaterial(Request $request) {
-        $formMaterial = $request->all();
-        $result = M_TMaterial::create($formMaterial);
+        // $formMaterial = $request->all();
+        $result = M_TMaterial::create($request->except('price', 'total_price') + [
+            'price' => cleanForPrice($request->price),
+            'total_price' => cleanForPrice($request->total_price),
+        ]);
         if($result) {
             return response()->json(['message'=> 'Berhasil Menambahkan Data Material', 'data' => $result], 200);
         } else {
@@ -154,8 +157,11 @@ class MMaterialController extends Controller
     }
 
     function saveReportMaterial(Request $request) {
-        $formJob = $request->all();
-        $result = M_DailyMaterialDetailReport::create($formJob);
+        // $formJob = $request->all();
+        $result = M_DailyMaterialDetailReport::create($request->except('price', 'total_price') + [
+            'price' => cleanForPrice($request->price),
+            'total_price' => cleanForPrice($request->total_price),
+        ]);
         if($result) {
             return response()->json(['message'=> 'Berhasil Menambahkan Data Material', 'data' => $result], 200);
         } else {
