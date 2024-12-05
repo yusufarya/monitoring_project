@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('balance_report_details', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('balance_id');
-            $table->string('code', 20);
-            $table->string('name', 200);
-            $table->char('unit', 10);
-            $table->double('qty')->default(0);
-            $table->string('status', 100);
-            $table->string('note', 200)->nullable();
+        // Schema::create('balance_report_details', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('balance_id');
+        //     $table->string('code', 20);
+        //     $table->string('name', 200);
+        //     $table->char('unit', 10);
+        //     $table->double('qty')->default(0);
+        //     $table->string('status', 100);
+        //     $table->string('note', 200)->nullable();
 
-            $table->foreign('balance_id')->on('balance_reports')->references('id');
-            $table->timestamps();
-        });
+        //     $table->foreign('balance_id')->on('balance_reports')->references('id');
+        //     $table->timestamps();
+        // });
     }
 
     /**
