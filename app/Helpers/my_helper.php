@@ -15,6 +15,15 @@ function last_query($result = '') {
     dd(DB::getQueryLog());
 }
 
+function cleanForPriceHD($value) {
+    $string = str_replace('.', '', $value); // Removes special chars.
+    $string = str_replace(',', '.', $string); // Replaces all spaces with hyphens.
+    // dd($string);
+    $formatted = sprintf('%.2f', $string);
+
+    return preg_replace('/-+/', '-', $formatted); // Replaces multiple hyphens with single one.
+}
+
 function cleanForPrice($value) {
     $string = str_replace('.', ',', $value); // Removes special chars.
     $string = str_replace(',', '.', $string); // Replaces all spaces with hyphens.

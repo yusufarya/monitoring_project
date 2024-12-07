@@ -47,7 +47,7 @@ class MJobController extends Controller
             'price'      => 'required',
         ]);
 
-        $validatedData['price'] = cleanForPrice($request->price);
+        $validatedData['price'] = cleanForPriceHD($request->price);
 
         $result = M_MJob::create($validatedData);
         if($result) {
@@ -74,7 +74,7 @@ class MJobController extends Controller
             $code_exist = M_MJob::where('id', $request['id'])->first();
         }
 
-        $validatedData['price'] = cleanForPrice($request->price);
+        $validatedData['price'] = cleanForPriceHD($request->price);
 
         if($code_exist === false) {
             $result = M_MJob::find($request['id'])->update($validatedData);

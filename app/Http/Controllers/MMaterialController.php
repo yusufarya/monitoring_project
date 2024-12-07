@@ -75,7 +75,7 @@ class MMaterialController extends Controller
             'price'      => 'required',
         ]);
 
-        $validatedData['price'] = cleanForPrice($request->price);
+        $validatedData['price'] = cleanForPriceHD($request->price);
 
         $result = M_MMaterial::create($validatedData);
         if($result) {
@@ -102,7 +102,7 @@ class MMaterialController extends Controller
             $code_exist = M_MMaterial::where('id', $request['id'])->first();
         }
 
-        $validatedData['price'] = cleanForPrice($request->price);
+        $validatedData['price'] = cleanForPriceHD($request->price);
 
         if($code_exist === false) {
             $result = M_MMaterial::find($request['id'])->update($validatedData);

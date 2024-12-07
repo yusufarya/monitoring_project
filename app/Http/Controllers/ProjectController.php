@@ -95,14 +95,14 @@ class ProjectController extends Controller
             $result = M_Project::find($request->project_id)->update($request->except('code_job', 'qty_job', 'code_material', 'qty_material', 'value_contract') + [
                 'supervisor_name' => ucwords($request->supervisor_name),
                 'project_name' => ucwords($request->project_name),
-                'value_contract' => cleanForPrice($request->value_contract),
+                'value_contract' => cleanForPriceHD($request->value_contract),
             ]);
             return redirect('/project-list/');
         } else {
             $result = M_Project::create($request->except('code_job', 'qty_job', 'code_material', 'qty_material', 'value_contract') + [
                 'supervisor_name' => ucwords($request->supervisor_name),
                 'project_name' => ucwords($request->project_name),
-                'value_contract' => cleanForPrice($request->value_contract),
+                'value_contract' => cleanForPriceHD($request->value_contract),
             ]);
             return redirect('/form-project/'.$result->id);
         }
