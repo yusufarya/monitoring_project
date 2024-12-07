@@ -102,7 +102,8 @@
                     <th style="text-align: center;">Satuan</th>
                     <th style="text-align: right;">Qty</th>
                     <th style="text-align: right;">Harga</th>
-                    <th style="text-align: right;">Total Harga</th>
+                    <th style="text-align: right;">Jumlah Harga</th>
+                    <th style="text-align: right;">Bobot (%)</th>
                 </tr>
             </thead>
             <tbody>
@@ -117,6 +118,7 @@
                         <td style="text-align: right;">{{ $item->qty }}</td>
                         <td style="text-align: right;">{{ number_format($item->price,0, ',', '.') }}</td>
                         <td style="text-align: right;">{{ number_format($item->total_price,0, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ number_format($item->weight,0, ',', '.') }}</td>
                     </tr>
                 @endforeach
             </tbody>
