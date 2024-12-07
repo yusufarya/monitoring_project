@@ -15,11 +15,13 @@ function last_query($result = '') {
     dd(DB::getQueryLog());
 }
 
-function cleanForPrice($string) {
-    $string = str_replace('.', '', $string); // Removes special chars.
+function cleanForPrice($value) {
+    $string = str_replace('.', ',', $value); // Removes special chars.
     $string = str_replace(',', '.', $string); // Replaces all spaces with hyphens.
     // dd($string);
-    return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
+    $formatted = sprintf('%.2f', $string);
+
+    return preg_replace('/-+/', '-', $formatted); // Replaces multiple hyphens with single one.
 }
 
 function hitung_umur($tanggal_lahir){

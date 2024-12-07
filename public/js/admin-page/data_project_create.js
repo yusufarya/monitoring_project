@@ -125,7 +125,7 @@ function getJobOfProject() {
         let totalPrice = price_job*qty_job
         console.log(totalPrice)
 
-        $('#total_price_job').val(totalPrice.toFixed(2))
+        $('#total_price_job').val(totalPrice)
     })
 
     $('#add_job').on('click', function() {
@@ -308,7 +308,7 @@ function getMaterialOfProject() {
         let totalPrice = price_material*qty_material
         console.log(totalPrice)
 
-        $('#total_price_material').val(totalPrice.toFixed(2))
+        $('#total_price_material').val(totalPrice)
     })
 
     $('#add_material').on('click', function() {

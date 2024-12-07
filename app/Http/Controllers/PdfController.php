@@ -32,10 +32,11 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf/detail-template', $data);
 
         // Download the PDF
-        // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+        // return $pdf->download('Proyek__'.$spk_number.'.pdf');
+        $spk_number = str_replace('/', '_', $header->spk_number);
 
         // Alternatively, return as a preview in the browser
-        return $pdf->stream('proyek_spk'.$header->spk_number.'.pdf');
+        return $pdf->stream('Proyek__'.$spk_number.'.pdf');
     }
 
     public function generateDailyJobPdf($id)
@@ -55,10 +56,11 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf/daily-job-template', $data);
 
         // Download the PDF
-        // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+        // return $pdf->download('Laporan_pekerjaan_harian_'.$spk_number.'.pdf');
+        $spk_number = str_replace('/', '_', $header->spk_number);
 
         // Alternatively, return as a preview in the browser
-        return $pdf->stream('laporan_pekerjaan_harian_spk'.$header->spk_number.'.pdf');
+        return $pdf->stream('Laporan_pekerjaan_harian_'.$spk_number.'.pdf');
     }
 
     public function generateDailyMaterialPdf($id)
@@ -78,10 +80,11 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf/daily-material-template', $data);
 
         // Download the PDF
-        // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+        return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
+        $spk_number = str_replace('/', '_', $header->spk_number);
 
         // Alternatively, return as a preview in the browser
-        return $pdf->stream('laporan_material_harian_spk'.$header->spk_number.'.pdf');
+        return $pdf->stream('Laporan_material_harian_spk_'.$spk_number.'.pdf');
     }
 
     public function generateRecaptPdf($spk_number)
@@ -101,9 +104,10 @@ class PdfController extends Controller
         $pdf = Pdf::loadView('pdf/daily-material-template', $data);
 
         // Download the PDF
-        // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+        return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
+        $spk_number = str_replace('/', '_', $header->spk_number);
 
         // Alternatively, return as a preview in the browser
-        return $pdf->stream('laporan_material_harian_spk'.$header->spk_number.'.pdf');
+        return $pdf->stream('Laporan_material_harian_spk_'.$spk_number.'.pdf');
     }
 }
