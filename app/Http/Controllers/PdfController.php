@@ -79,9 +79,9 @@ class PdfController extends Controller
 
         $pdf = Pdf::loadView('pdf/daily-material-template', $data);
 
-        // Download the PDF
-        return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
         $spk_number = str_replace('/', '_', $header->spk_number);
+        // Download the PDF
+        // return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
 
         // Alternatively, return as a preview in the browser
         return $pdf->stream('Laporan_material_harian_spk_'.$spk_number.'.pdf');
@@ -103,9 +103,9 @@ class PdfController extends Controller
 
         $pdf = Pdf::loadView('pdf/daily-material-template', $data);
 
-        // Download the PDF
-        return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
         $spk_number = str_replace('/', '_', $header->spk_number);
+        // Download the PDF
+        // return $pdf->download('Laporan_material_harian_spk_'.$spk_number.'.pdf');
 
         // Alternatively, return as a preview in the browser
         return $pdf->stream('Laporan_material_harian_spk_'.$spk_number.'.pdf');
