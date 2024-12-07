@@ -98,14 +98,16 @@
     }
 
     function clearRupiahFormatting(value) {
-        const originalValue = hasSpecialChars(value)
+        // Step 1: Remove periods used for thousands
+        let valueWithoutThousands = value.replace(/\./g, '');
 
-        if (originalValue) {
+        // Step 2: Replace the comma with a dot for decimal point
+        let cleanedValue = valueWithoutThousands.replace(',', '.');
 
-            return value.replace(/[^0-9]/g, '')
-        }
+        // Step 3: Convert the cleaned string to a number
+        let numberValue = parseFloat(cleanedValue);
 
-        return undefined // Explicitly return undefined if no special characters are found
+        return numberValue;
     }
 
     // Method to check if a value contains special characters

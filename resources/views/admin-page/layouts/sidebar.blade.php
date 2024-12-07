@@ -51,7 +51,31 @@
                     </a>
                 </li>
 
-                @if ($auth_user->level_id == 3)
+                @if($auth_user->level_id == 3 || $auth_user->level_id == 1)
+                    <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-staff' || Request::segment(1) === 'form-add-staff' ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link ">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>
+                                Data User
+                            <i class="fas fa-angle-right right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-3">
+                            <li class="nav-item">
+                                <a href="/data-admin" class="nav-link {{ Request::segment(1) === 'data-admin' ? 'submenu-active' : '' }}">
+                                    » &nbsp;
+                                    <p>Data Admin</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/data-staff" class="nav-link {{ Request::segment(1) === 'data-staff' || Request::segment(1) === 'form-add-staff' ? 'submenu-active' : '' }}">
+                                    » &nbsp;
+                                    <p>Data Operator</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item {{ Request::segment(1) === 'data-job' || Request::segment(1) === 'data-material' ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link ">
                             <i class="nav-icon fas fa-box"></i>
@@ -75,32 +99,6 @@
                         </li>
                         </ul>
                     </li>
-                @endif
-
-                @if($auth_user->level_id == 3 || $auth_user->level_id == 1)
-                    <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-staff' ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link ">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Data User
-                            <i class="fas fa-angle-right right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview ml-3">
-                            <li class="nav-item">
-                                <a href="/data-admin" class="nav-link {{ Request::segment(1) === 'data-admin' ? 'submenu-active' : '' }}">
-                                    » &nbsp;
-                                    <p>Data Admin</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/data-staff" class="nav-link {{ Request::segment(1) === 'data-staff' ? 'submenu-active' : '' }}">
-                                    » &nbsp;
-                                    <p>Data Operator</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
                     <li class="nav-item ">
                         <a href="/project-list" class="nav-link {{ Request::segment(1) === 'project-list' || Request::segment(1) === 'form-project' ? 'menu-active' : '' }}">
@@ -110,9 +108,9 @@
                     </li>
                 @endif
 
-                @if ($auth_user->level_id == 2)
+                @if ($auth_user->level_id == 2 || $auth_user->level_id == 1)
 
-                <li class="nav-item {{ Request::segment(1) === 'job-daily-report' || Request::segment(1) === 'material-daily-report' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'form-job-daily-report' || Request::segment(1) === 'job-daily-report' || Request::segment(1) === 'material-daily-report' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-file"></i>
                         <p>
@@ -122,7 +120,7 @@
                     </a>
                     <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/job-daily-report" class="nav-link {{ Request::segment(1) === 'job-daily-report' ? 'submenu-active' : '' }}">
+                            <a href="/job-daily-report" class="nav-link {{ Request::segment(1) === 'form-job-daily-report' || Request::segment(1) === 'job-daily-report' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Pekerjaan </p>
                             </a>
@@ -161,37 +159,6 @@
                     </a>
                 </li>
                 @endif
-
-                {{-- <li class="nav-header">Laporan</li>
-                <li class="nav-item {{ Request::segment(1) === 'registrant-report' || Request::segment(1) === 'participant-report' || Request::segment(1) === 'service-detail' ? 'menu-is-opening menu-open' : '' }}">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>
-                            Data Laporan
-                        <i class="fas fa-angle-right right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview ml-3">
-                        <li class="nav-item">
-                            <a href="/registrant-report" class="nav-link {{ Request::segment(1) === 'registrant-report' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Laporan Pendaftar Akun</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/participant-report" class="nav-link {{ Request::segment(1) === 'participant-report' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Laporan Pelatihan Peserta</p>
-                            </a>
-                        </li>
-                        <li class="nav-item" hidden>
-                            <a href="/ujk_report" class="nav-link {{ Request::segment(1) === 'ujk_report' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Laporan Peserta UJK</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
 
             </ul>
         </nav>

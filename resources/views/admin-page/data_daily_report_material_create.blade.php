@@ -90,7 +90,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="value_contract">Nilai Kontrak</label>
-                        <input type="text" class="form-control @error('value_contract')is-invalid @enderror" name="value_contract" id="value_contract" value="{{ isset($dailyReport['value_contract']) ? number_format($material_pickup['value_contract'],2, ',', '.') : 0 }}" required readonly>
+                        <input type="text" class="form-control @error('value_contract')is-invalid @enderror" name="value_contract" id="value_contract" value="{{ isset($dailyReport['value_contract']) ? number_format($dailyReport['value_contract'],2, ',', '.') : 0 }}" required readonly>
                         @error('value_contract')
                         <small class="invalid-feedback">
                             Nilai Kontrak {{ $message }}
@@ -100,7 +100,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="value_total_job">Nilai Total Pekerjaan</label>
-                        <input type="text" class="form-control @error('value_total_job')is-invalid @enderror" name="value_total_job" id="value_total_job" value="{{ isset($dailyReport['value_total_job']) ? number_format($material_pickup['value_total_job'],2, ',', '.') : 0 }}" required readonly>
+                        <input type="text" class="form-control @error('value_total_job')is-invalid @enderror" name="value_total_job" id="value_total_job" value="{{ isset($dailyReport['value_total_job']) ? number_format($dailyReport['value_total_job'],2, ',', '.') : 0 }}" required readonly>
                         @error('value_total_job')
                         <small class="invalid-feedback">
                             Nilai Total Pekerjaan {{ $message }}
@@ -110,7 +110,7 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="value_total_material">Nilai Total Material</label>
-                        <input type="text" class="form-control @error('value_total_material')is-invalid @enderror" name="value_total_material" id="value_total_material" value="{{ isset($dailyReport['value_total_material']) ? number_format($material_pickup['value_total_material'],2, ',', '.') : 0 }}" required readonly>
+                        <input type="text" class="form-control @error('value_total_material')is-invalid @enderror" name="value_total_material" id="value_total_material" value="{{ isset($dailyReport['value_total_material']) ? number_format($dailyReport['value_total_material'],2, ',', '.') : 0 }}" required readonly>
                         @error('value_total_material')
                         <small class="invalid-feedback">
                             Nilai Total Material {{ $message }}

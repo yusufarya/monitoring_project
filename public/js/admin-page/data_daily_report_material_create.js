@@ -215,9 +215,11 @@ function getMaterialOfProject() {
 
         // jumlah harga (qty*harga satuan per item) / nilai total pekerjaan
         let value_total_material = $('#value_total_material').val()
-        let weight = (qty_material*price_material) / clearRupiahFormatting(value_total_material)
+        let total_material_value = parseFloat(clearRupiahFormatting(value_total_material))
+        let weight = parseFloat(totalPrice) / total_material_value
         console.log(weight)
-        $('#weight').val(parseFloat(weight).toFixed(2)*100)
+        let fix_weight = weight*100
+        $('#weight').val(fix_weight.toFixed(2))
     })
 
 

@@ -179,9 +179,12 @@ function getJobOfDailyReport() {
 
         // jumlah harga (qty*harga satuan per item) / nilai total pekerjaan
         let value_total_job = $('#value_total_job').val()
-        let weight = (qty_job*price_job) / clearRupiahFormatting(value_total_job)
-        // console.log(weight)
-        $('#weight').val(parseFloat(weight).toFixed(2))
+        let total_job_value = parseFloat(clearRupiahFormatting(value_total_job))
+        let weight = totalPrice / total_job_value
+        console.log('weight')
+        console.log(weight)
+        let fix_weight = weight*100
+        $('#weight').val(fix_weight.toFixed(2))
     })
 
     $('#addItemJob').on('click', function() {

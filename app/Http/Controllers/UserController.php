@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     function index() {
         $number = Auth::guard('web')->user()->number;
-        $data = User::with('user_level')->find($number)->first();
+        $data = User::with('user_level')->where('number', $number)->first();
         return view('admin-page.profile', [
             'title' => 'Profile',
             'auth_user' => $data
@@ -38,7 +38,7 @@ class UserController extends Controller
 
     function getDetailAdmin(Request $request) {
         $number = $request->number;
-        $data = User::with('user_level')->find($number)->first();
+        $data = User::with('user_level')->where('number', $number)->first();
 
         $data->address = $data->address ? $data->address : " - ";
         $data->place_of_birth = $data->place_of_birth ? $data->place_of_birth : " - ";

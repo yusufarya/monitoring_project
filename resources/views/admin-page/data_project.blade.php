@@ -31,7 +31,7 @@
           <table class="table table-bordered table-sm">
               <thead>
                   <tr class="my-bg-primary text-white">
-                      <th style="width: 4%">ID Proyek</th>
+                      <th style="width: 4%">ID</th>
                       <th>Nomor SPK</th>
                       <th>Nama Proyek</th>
                       <th>Tanggal Mulai</th>
