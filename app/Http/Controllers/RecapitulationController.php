@@ -72,8 +72,8 @@ class RecapitulationController extends Controller
         // Get material balance data with joins
         $balanceData = DB::table('projects as p')
             ->join('t_jobs as tm', 'tm.project_id', '=', 'p.id')
-            ->leftJoin('daily_job_reports as djr', 'djr.spk_number', '=', 'p.spk_number')
-            ->leftJoin('daily_job_report_details as djrd', function($join) {
+            ->join('daily_job_reports as djr', 'djr.spk_number', '=', 'p.spk_number')
+            ->join('daily_job_report_details as djrd', function($join) {
                 $join->on('djrd.daily_report_id', '=', 'djr.id')
                     ->on('djrd.code', '=', 'tm.code');
             })
@@ -84,9 +84,9 @@ class RecapitulationController extends Controller
                 DB::raw('COALESCE(SUM(tm.qty), 0) as total_qty'),
                 DB::raw('COALESCE(SUM(djrd.qty), 0) as daily_qty'),
                 DB::raw('CASE
-                    WHEN COALESCE(SUM(tm.qty), 0) = COALESCE(SUM(djrd.qty), 0) THEN "Sesuai"
-                    ELSE "Tidak Sesuai"
-                END as status')
+                    WHEN COALESCE(SUM(tm.qty), 0) = COALESCE(SUM(djrd.qty), 0) THEN "BALANCE"
+                    ELSE "RETURN"
+                END as notes')
             )
             ->when(request('spk_number'), function ($q, $spk_number) {
                 $q->where('p.spk_number', 'like', "%$spk_number%");
@@ -116,12 +116,14 @@ class RecapitulationController extends Controller
 
             $pdf = Pdf::loadView('admin-page.report.recapt_job', $data);
 
+            $spk_number = str_replace('/', '_', $projectData->spk_number);
             // Download the PDF
-            // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+
+            // Download the PDF
+            // return $pdf->download('rekapitulasi_pekerjaan_spk'.$spk_number.'.pdf');
 
             // Alternatively, return as a preview in the browser
-            return $pdf->stream('rekapitulasi_pekerjaan_spk-'.$projectData->spk_number.'.pdf');
-
+            return $pdf->stream('rekapitulasi_pekerjaan_'.$spk_number.'.pdf');
         }
     }
 
@@ -143,16 +145,17 @@ class RecapitulationController extends Controller
         // Get material balance data with joins
         $balanceData = DB::table('projects as p')
             ->join('t_materials as tm', 'tm.project_id', '=', 'p.id')
-            ->leftJoin('material_pickups as mp', 'mp.project_id', '=', 'p.id')
-            ->leftJoin('material_pickup_details as mpd', function($join) {
+            ->join('material_pickups as mp', 'mp.project_id', '=', 'p.id')
+            ->join('material_pickup_details as mpd', function($join) {
                 $join->on('mpd.material_pickup_id', '=', 'mp.id')
                     ->on('mpd.code', '=', 'tm.code');
             })
-            ->leftJoin('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
-            ->leftJoin('daily_material_report_details as dmrd', function($join) {
+            ->join('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
+            ->join('daily_material_report_details as dmrd', function($join) {
                 $join->on('dmrd.daily_report_id', '=', 'dmr.id')
                     ->on('dmrd.code', '=', 'tm.code');
             })
+            ->distinct()
             ->select(
                 'tm.code',
                 'tm.name',
@@ -160,12 +163,13 @@ class RecapitulationController extends Controller
                 'tm.qty as total_qty',
                 DB::raw('COALESCE(SUM(mpd.qty), 0) as pickup_qty'),
                 DB::raw('COALESCE(SUM(dmrd.qty), 0) as daily_qty'),
+                DB::raw('COALESCE(SUM(dmrd.qty), 0) - COALESCE(SUM(mpd.qty), 0) as status'),
                 DB::raw('CASE
-                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "Sesuai"
-                    ELSE "Tidak Sesuai"
-                END as status')
+                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "BALANCE"
+                    ELSE "RETURN"
+                END as notes')
             )
-            ->when(request('spk_number'), function ($q, $spk_number) {
+            ->when($spk_number, function ($q, $spk_number) {
                 $q->where('p.spk_number', 'like', "%$spk_number%");
             })
             ->when(request('date'), function ($q, $date) {
@@ -193,11 +197,13 @@ class RecapitulationController extends Controller
 
             $pdf = Pdf::loadView('admin-page.report.recapt_material', $data);
 
+            $spk_number = str_replace('/', '_', $projectData->spk_number);
+
             // Download the PDF
-            // return $pdf->download('proyek_spk'.$header->spk_number.'.pdf');
+            // return $pdf->download('rekapitulasi_material_spk-'.$spk_number.'.pdf');
 
             // Alternatively, return as a preview in the browser
-            return $pdf->stream('rekapitulasi_material_spk-'.$projectData->spk_number.'.pdf');
+            return $pdf->stream('rekapitulasi_material_spk-'.$spk_number.'.pdf');
         }
     }
 }

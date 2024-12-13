@@ -40,7 +40,15 @@
 
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="spk_number">Nomor SPK</label>
-                        <input type="text" class="form-control @error('spk_number')is-invalid @enderror" name="spk_number" id="spk_number" value="{{ $material_pickup['spk_number'] ?? '' }}" required>
+                        {{-- <input type="text" class="form-control @error('spk_number')is-invalid @enderror" name="spk_number" id="spk_number" value="{{ $material_pickup['spk_number'] ?? '' }}" required> --}}
+                        <select class="select-spk_number form-control" name="spk_number" id="spk_number" @isset($material_pickup['spk_number']) disabled @endisset>
+                            <option value="">Plih Nomor Spk</option>
+                            @foreach ($projectData as $item)
+                            <option value="{{ $item->spk_number }}" {{ isset($material_pickup['spk_number']) && $material_pickup['spk_number'] == $item->spk_number ? 'selected' : ''}}>
+                                    {{ $item->spk_number .' - '. $item->project_name }}
+                                </option>
+                            @endforeach
+                        </select>
                         @error('spk_number')
                         <small class="invalid-feedback">
                             Nama Operator {{ $message }}

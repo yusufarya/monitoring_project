@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\M_DailyMaterialReport;
 use App\Models\M_DailyMaterialDetailReport;
+use App\Models\M_Project;
 use App\Models\M_TMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,8 @@ class DailyReportMaterialController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $data = Auth::guard('web')->user();
+        $projectData = M_Project::get();
+
         if($id) {
             $resultData = M_DailyMaterialReport::find($id);
         } else {
@@ -39,7 +42,8 @@ class DailyReportMaterialController extends Controller
             'script' => $filename_script,
             'title' => 'Form Laporan Harian Material',
             'auth_user' => $data,
-            'dailyReport' => $resultData
+            'dailyReport' => $resultData,
+            'projectData' => $projectData
         ]);
 
     }

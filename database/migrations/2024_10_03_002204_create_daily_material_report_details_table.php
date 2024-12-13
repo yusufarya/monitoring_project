@@ -23,7 +23,7 @@ return new class extends Migration
             $table->double('weight')->default(0);
             $table->double('total_weight')->default(0);
 
-            $table->foreign('daily_report_id')->on('projects')->references('id');
+            $table->foreign('daily_report_id')->on('daily_material_reports')->references('id');
             $table->timestamps();
         });
     }

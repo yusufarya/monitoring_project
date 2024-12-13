@@ -148,9 +148,9 @@ function getMaterialOfProject() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td style="text-align:center;">${total_qty}</td>
+                    <td style="text-align:center;"></td>
                     <th colspan="2" style="text-align:right;">Total Bobot Sampai Hari ini (%)</th>
-                    <td style="text-align:right;">${total_weight}</td>
+                    <td style="text-align:right;">${total_weight.toFixed(2)}</td>
                     <td style="width: 10%; text-align: center;"></td>
                 </tr>`
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\M_MaterialPickup;
 use App\Models\M_MaterialPickupDetail;
+use App\Models\M_Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,11 +26,13 @@ class MaterialPickupController extends Controller
     }
 
     function formMaterialPickup($id = null) {
-        // dd($id);
-        $data = Auth::guard('web')->user();
-        $resultData = M_MaterialPickup::find($id);
         $filename = 'data_material_pickup_create';
         $filename_script = getContentScript(true, $filename);
+
+        $data = Auth::guard('web')->user();
+        $resultData = M_MaterialPickup::find($id);
+        $projectData = M_Project::get();
+
         if($id) {
             $resultData = M_MaterialPickup::find($id);
         } else {
@@ -40,7 +43,8 @@ class MaterialPickupController extends Controller
             'script' => $filename_script,
             'title' => 'Form Pengambilan Material',
             'auth_user' => $data,
-            'material_pickup' => $resultData
+            'material_pickup' => $resultData,
+            'projectData' => $projectData
         ]);
     }
 
@@ -88,6 +92,6 @@ class MaterialPickupController extends Controller
             $request->session()->flash('failed', 'Proses gagal, Data Tidak Ditemukan');
         }
 
-        return redirect('/data-material-pickup/');
+        return redirect('/material-pickup/');
     }
 }

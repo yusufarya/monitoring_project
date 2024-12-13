@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 10px;
+            padding: 0;
         }
         .header {
             margin-bottom: 20px;
@@ -49,7 +49,7 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-            font-size: 13px;
+            font-size: 12px;
         }
         .details th {
             background-color: #f4f4f4;
@@ -97,6 +97,7 @@
                     <th style="text-align: right;">Diambil</th>
                     <th style="text-align: right;">Terpasang</th>
                     <th style="text-align: right;">Status</th>
+                    <th style="text-align: center;">Ket.</th>
                 </tr>
             </thead>
             <tbody>
@@ -112,6 +113,7 @@
                         <td style="text-align: right;">{{ $item->daily_qty }}</td>
                         <td style="text-align: right;">{{ $item->daily_qty }}</td>
                         <td style="text-align: right;">{{ $item->status }}</td>
+                        <td style="text-align: center;">{{ $item->notes }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -139,12 +139,12 @@ function getMaterialOfProject() {
             }
         })
 
-        html += `<tr>
-                    <td></td>
-                    <th colspan="2" style="text-align:right;">Total Quantity</th>
-                    <th style="text-align:center;">${total_qty}</th>
-                    <td style="width: 10%; text-align: center;"></td>
-                </tr>`
+        // html += `<tr>
+        //             <td></td>
+        //             <th colspan="2" style="text-align:right;">Total Quantity</th>
+        //             <th style="text-align:center;">${total_qty}</th>
+        //             <td style="width: 10%; text-align: center;"></td>
+        //         </tr>`
     }
     html += `<tr>
                 <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;" autocomplete="off"></td>

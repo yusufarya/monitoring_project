@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\M_DailyJobReport;
 use App\Models\M_DailyJobDetailReport;
+use App\Models\M_Project;
 use App\Models\M_TMaterial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,7 @@ class DailyReportJobController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $data = Auth::guard('web')->user();
-        $resultData = M_DailyJobReport::get();
+        $resultData = M_DailyJobReport::orderBy('id', 'DESC')->get();
         return view('admin-page.'.$filename, [
             'script' => $filename_script,
             'title' => 'Laporan Harian Pekerjaan',
@@ -30,6 +31,8 @@ class DailyReportJobController extends Controller
         $filename_script = getContentScript(true, $filename);
 
         $data = Auth::guard('web')->user();
+        $projectData = M_Project::get();
+
         if($id) {
             $resultData = M_DailyJobReport::find($id);
         } else {
@@ -39,7 +42,8 @@ class DailyReportJobController extends Controller
             'script' => $filename_script,
             'title' => 'Form Laporan Harian Pekerjaan',
             'auth_user' => $data,
-            'dailyReport' => $resultData
+            'dailyReport' => $resultData,
+            'projectData' => $projectData
         ]);
 
     }
