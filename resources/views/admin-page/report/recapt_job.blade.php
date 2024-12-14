@@ -95,23 +95,41 @@
                     <th style="text-align: center;">Satuan</th>
                     <th style="text-align: right;">BOQ</th>
                     <th style="text-align: right;">Terpasang</th>
-                    <th style="text-align: center;">Ket.</th>
+                    <th style="text-align: right;">Harga</th>
+                    <th style="text-align: right;">Jumlah Harga</th>
+                    {{-- <th style="text-align: center;">Ket.</th> --}}
                 </tr>
             </thead>
             <tbody>
                 @php
                     $no = 1;
-                @endphp
+                    $grand_total_price = 0;
+                    @endphp
                 @foreach ($detail as $item)
+                @php
+                    $grand_total_price += $item->daily_total_price;
+                @endphp
                     <tr>
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->total_qty }}</td>
                         <td style="text-align: right;">{{ $item->daily_qty }}</td>
-                        <td style="text-align: center;">{{ $item->notes }}</td>
+                        <td style="text-align: right;">{{ number_format($item->daily_price,2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ number_format($item->daily_total_price,2, ',', '.') }}</td>
+                        {{-- <td style="text-align: center;">{{ $item->notes }}</td> --}}
                     </tr>
                 @endforeach
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right;">{{ number_format($grand_total_price,2, ',', '.') }}</td>
+                    {{-- <td style="text-align: center;">{{ $item->notes }}</td> --}}
+                </tr>
             </tbody>
         </table>
     @endif

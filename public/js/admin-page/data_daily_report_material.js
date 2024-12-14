@@ -12,7 +12,7 @@ function delete_data(id, name) {
     //
     $("#modal-delete").modal("show");
     $(".modal-title").text("Hapus Data");
-    $("#modal-delete form").attr("action", "/delete-project/" + id);
+    $("#modal-delete form").attr("action", "/delete-material-daily-report/" + id);
     $("#content-delete").html("");
 
     var html =
@@ -20,7 +20,7 @@ function delete_data(id, name) {
                 <input type="hidden" name="id" id="id" value="` +
         id +
         `">
-                <span style="margin-left: 10px;">Hapus Data Proyek <b>` +
+                <span style="margin-left: 10px;">Hapus Data Material <b>` +
         name +
         `</b> ?<span>
                 </div>`;

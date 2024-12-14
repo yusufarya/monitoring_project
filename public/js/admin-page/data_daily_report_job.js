@@ -20,7 +20,7 @@ function delete_data(id, name) {
                 <input type="hidden" name="id" id="id" value="` +
         id +
         `">
-                <span style="margin-left: 10px;">Hapus Data Proyek <b>` +
+                <span style="margin-left: 10px;">Hapus Data Pekerjaan <b>` +
         name +
         `</b> ?<span>
                 </div>`;
