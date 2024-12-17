@@ -26,7 +26,9 @@
             </div>
           @endif
           <div class="row justify-content-end mb-2 w-100">
-            <a href="/form-material-pickup" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
+            @if ($auth_user->level_id != 1)
+                <a href="/form-material-pickup" class="btn float-right btn-add "><i class="fas fa-plus-square"></i> &nbsp; Data</a>
+            @endif
           </div>
           <table class="table table-bordered table-sm">
               <thead>
@@ -51,9 +53,11 @@
                       <td>{{ date('d/m/Y', strtotime($row->date)) }}</td>
                       <td>{{ $row->contractor_name }}</td>
                       <td style=" text-align: center;">
-                        <a href="/form-material-pickup/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
-                        &nbsp;
-                        <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->project_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                          <a href="/form-material-pickup/{{$row->id}}" class="text-warning"><i class="fas fa-edit"></i></a>
+                          @if ($auth_user->level_id != 1)
+                            &nbsp;
+                            <a href="#" onclick="delete_data(`{{$row->id}}`, `{{$row->project_name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></a>
+                        @endif
                       </td>
                   </tr>
                 @endforeach

@@ -24,28 +24,13 @@
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-      <!-- ./col -->
-      <div class="col-lg-6 col-6">
-        <!-- small box -->
-        <div class="small-box bg-success">
-          <div class="inner">
-            <h3>{{$todayJob}}</h3>
-
-            <p>Jumlah Pekerjaan Hari Ini </p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-chart-line"></i>
-          </div>
-          {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
-        </div>
-      </div>
-      <div class="col-lg-6 col-6">
+      <div class="col-lg-4 col-4">
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{$todayMaterial}}</h3>
+            <h3>{{count($projectData)}}</h3>
 
-            <p>Jumlah Material Hari Ini</p>
+            <p>Jumlah Proyek Masuk</p>
           </div>
           <div class="icon">
             <i class="fas fa-chart-area"></i>
@@ -53,13 +38,13 @@
           {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <div class="col-lg-6 col-6">
+      <div class="col-lg-4 col-4">
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>{{$todayJobDone}}</h3>
+            <h3>{{count($projectDataRunning)}}</h3>
 
-            <p>Pekerjaan Selesai Hari Ini </p>
+            <p>Jumlah Proyek berjalan </p>
           </div>
           <div class="icon">
             <i class="fas fa-chart-area"></i>
@@ -67,13 +52,13 @@
           {{-- <a href="/" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
         </div>
       </div>
-      <div class="col-lg-6 col-6">
+      <div class="col-lg-4 col-4">
         <!-- small box -->
-        <div class="small-box bg-primary">
+        <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{$todayMaterialDone}}</h3>
+            <h3>{{count($balancedProjects)}}</h3>
 
-            <p>Material Selesai Hari Ini</p>
+            <p>Jumlah Proyek Selesai</p>
           </div>
           <div class="icon">
             <i class="far fa-chart-bar"></i>
