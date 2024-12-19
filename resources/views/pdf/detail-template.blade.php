@@ -112,6 +112,7 @@
             <tbody>
                 @php
                     $no = 1;
+                    $totalValue = 0;
                 @endphp
                 @foreach ($detail_j as $item)
                     <tr>
@@ -122,7 +123,17 @@
                         <td style="text-align: right;">{{ number_format($item->price,0, ',', '.') }}</td>
                         <td style="text-align: right;">{{ number_format($item->total_price,0, ',', '.') }}</td>
                     </tr>
+                    @php
+                        $totalValue += $item->total_price;
+                    @endphp
                 @endforeach
+
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">Total Nilai Pekerjaan</th>
+                    <th style="text-align: right;">{{ number_format($totalValue,2, ',', '.') }}</th>
+                </tr>
             </tbody>
         </table>
     @endif
@@ -144,6 +155,7 @@
             <tbody>
                 @php
                     $no = 1;
+                    $totalValue = 0;
                 @endphp
                 @foreach ($detail_m as $item)
                     <tr>
@@ -154,7 +166,17 @@
                         <td style="text-align: right;">{{ number_format($item->price,0, ',', '.') }}</td>
                         <td style="text-align: right;">{{ number_format($item->total_price,0, ',', '.') }}</td>
                     </tr>
+                    @php
+                        $totalValue += $item->total_price;
+                    @endphp
                 @endforeach
+
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">Total Nilai Material</th>
+                    <th style="text-align: right;">{{ number_format($totalValue,2, ',', '.') }}</th>
+                </tr>
             </tbody>
         </table>
     @endif

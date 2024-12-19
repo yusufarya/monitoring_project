@@ -109,6 +109,8 @@
             <tbody>
                 @php
                     $no = 1;
+                    $totalWeight = 0;
+                    $totalValue = 0;
                 @endphp
                 @foreach ($detail_m as $item)
                     <tr>
@@ -116,11 +118,22 @@
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->qty }}</td>
-                        <td style="text-align: right;">{{ number_format($item->price,0, ',', '.') }}</td>
-                        <td style="text-align: right;">{{ number_format($item->total_price,0, ',', '.') }}</td>
-                        <td style="text-align: right;">{{ number_format($item->weight,0, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ number_format($item->price,2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ number_format($item->total_price,2, ',', '.') }}</td>
+                        <td style="text-align: right;">{{ number_format($item->weight,2, ',', '.') }}</td>
                     </tr>
+                    @php
+                        $totalWeight += $item->weight;
+                        $totalValue += $item->total_price;
+                    @endphp
                 @endforeach
+
+                <tr>
+                    <th></th>
+                    <th colspan="4">Total Nilai</th>
+                    <th style="text-align: right;">{{ number_format($totalValue,2, ',', '.') }}</th>
+                    <th style="text-align: right;">{{ number_format($totalWeight,2, ',', '.') }}</th>
+                </tr>
             </tbody>
         </table>
     @endif

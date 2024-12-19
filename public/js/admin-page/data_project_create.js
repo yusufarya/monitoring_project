@@ -18,6 +18,7 @@ function getJobOfProject() {
 
     $('table#table-job tbody').empty()
     var html = ''
+    let grandTotalPrice = 0
 
     let p_id = $('#project_id').val()
     if(p_id) {
@@ -38,7 +39,7 @@ function getJobOfProject() {
                     // console.log(response);
                     response.map(function(dataJob, index) {
                         // Your logic here for each item
-                        console.log(dataJob)
+                        // console.log(dataJob)
                         html += `<tr>
                                 <td style="padding: 0 5px;">${dataJob.code}</td>
                                 <td style="padding: 0 5px;">${dataJob.name}</td>
@@ -52,8 +53,8 @@ function getJobOfProject() {
                                     </button>
                                 </td>
                         </tr>`
+                        grandTotalPrice += dataJob.total_price
                     });
-
                 }
             },
             error: function(jqXHR, status, error) {
@@ -67,6 +68,17 @@ function getJobOfProject() {
                 // console.log('All Headers on Error:', jqXHR.getAllResponseHeaders());
             }
         })
+
+
+
+        html += `<tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th colspan="2" style="text-align:right;">Nilai Total Pekerjaan</th>
+                    <th style="text-align:right;">${replaceRupiah(parseFloat(grandTotalPrice).toFixed(2))}</th>
+                    <td style="width: 10%; text-align: center;"></td>
+                </tr>`
     }
 
     html += `<tr>
@@ -98,7 +110,7 @@ function getJobOfProject() {
                 var statusCode = jqXHR.status;
                 // console.log('Status Code:', statusCode);
                 if(statusCode == 200) {
-                    console.log(response)
+                    // console.log(response)
                     $('#name_job').val(response.name)
                     $('#unit_job').val(response.unit)
                     $('#price_job').val(response.price)
@@ -120,10 +132,10 @@ function getJobOfProject() {
     $('#qty_job').on('blur', function() {
         let qty_job = $(this).val()
         let price_job = $('#price_job').val()
-        console.log(qty_job)
-        console.log(price_job)
+        // console.log(qty_job)
+        // console.log(price_job)
         let totalPrice = price_job*qty_job
-        console.log(totalPrice)
+        // console.log(totalPrice)
 
         $('#total_price_job').val(totalPrice)
     })
@@ -148,7 +160,7 @@ function getJobOfProject() {
                 var statusCode = jqXHR.status;
                 // console.log('Status Code:', statusCode);
                 if(statusCode == 200) {
-                    console.log(response)
+                    // console.log(response)
                     getJobOfProject()
                 }
             },
@@ -198,6 +210,7 @@ function getMaterialOfProject() {
 
     $('table#table-material tbody').empty()
     var html = ''
+    let grandTotalPrice = 0
 
     let p_id = $('#project_id').val()
     if(p_id) {
@@ -218,7 +231,7 @@ function getMaterialOfProject() {
                     // console.log(response);
                     response.map(function(dataMaterial, index) {
                         // Your logic here for each item
-                        console.log(dataMaterial)
+                        // console.log(dataMaterial)
                         html += `<tr>
                                 <td style="padding: 0 5px;">${dataMaterial.code}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.name}</td>
@@ -232,8 +245,8 @@ function getMaterialOfProject() {
                                     </button>
                                 </td>
                         </tr>`
+                        grandTotalPrice += dataMaterial.total_price
                     });
-
 
                 }
             },
@@ -248,6 +261,15 @@ function getMaterialOfProject() {
                 // console.log('All Headers on Error:', jqXHR.getAllResponseHeaders());
             }
         })
+
+        html += `<tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <th colspan="2" style="text-align:right;">Nilai Total Pekerjaan</th>
+                    <th style="text-align:right;">${replaceRupiah(parseFloat(grandTotalPrice).toFixed(2))}</th>
+                    <td style="width: 10%; text-align: center;"></td>
+                </tr>`
 
     }
 
