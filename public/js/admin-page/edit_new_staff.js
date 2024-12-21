@@ -1,4 +1,20 @@
 $(function () {
+
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const icon = this.querySelector('i');
+        // Toggle password visibility
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
+
     console.log("ready");
     const imgInp = document.getElementById("images");
     let blah = document.getElementById("blah");
@@ -14,7 +30,7 @@ $(function () {
 function changeUsername() {
     const username = document.getElementById("username").value;
     const usnm = username.replaceAll(" ", "_");
-    console.log(usnm);
+    // console.log(usnm);
     document.getElementById("username").value = usnm.toLowerCase();
 }
 

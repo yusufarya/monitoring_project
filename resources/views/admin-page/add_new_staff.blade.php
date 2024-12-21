@@ -41,7 +41,7 @@
 
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
                                 <label for="fullname">Nema Lengkap</label>
-                                <input type="text" autocomplete="off" class="form-control @error('fullname')is-invalid @enderror" name="fullname" id="fullname" maxlength="50" placeholder="Nama lengkap" onkeyup="generateUsername()" value="{{ old('fullname') }}">
+                                <input type="text" autocomplete="off" class="form-control @error('fullname')is-invalid @enderror" name="fullname" id="fullname" maxlength="50" placeholder="Nama lengkap" value="{{ old('fullname') }}">
                                 @error('fullname')
                                     <small class="invalid-feedback">
                                         Nama Lengkap {{ $message }}
@@ -153,7 +153,12 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control @error('password')is-invalid @enderror" name="password" id="password">
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password')is-invalid @enderror" name="password" id="password">
+                                    <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
                                 @error('password')
                                 <small class="invalid-feedback">
                                     Password {{ $message }}

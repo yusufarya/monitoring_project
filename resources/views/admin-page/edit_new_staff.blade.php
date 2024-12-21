@@ -156,7 +156,12 @@
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
                                 <label for="password">Password</label> <small class="text-danger"> ( Kosongkan jika tidak ingin mengubah password )</small>
-                                <input type="password" class="form-control @error('password')is-invalid @enderror" name="password" id="password">
+                                <div class="input-group">
+                                    <input type="password" class="form-control @error('password')is-invalid @enderror" name="password" id="password">
+                                    <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fas fa-eye"></i>
+                                    </span>
+                                </div>
                                 @error('password')
                                 <small class="invalid-feedback">
                                     Password {{ $message }}
