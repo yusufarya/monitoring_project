@@ -50,7 +50,7 @@
                             </div>
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
                                 <label for="username">Username</label>
-                                <input type="text" autocomplete="off" class="form-control @error('username')is-invalid @enderror" name="username" id="username" maxlength="10" onkeyup="changeUsername()" value="{{ old('username') }}">
+                                <input type="text" autocomplete="off" class="form-control @error('username')is-invalid @enderror" name="username" id="username" maxlength="30" onkeyup="changeUsername()" value="{{ old('username') }}">
                                 @error('username')
                                     <small class="invalid-feedback">
                                         Username {{ $message }}
