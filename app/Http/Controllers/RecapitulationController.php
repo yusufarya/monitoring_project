@@ -82,8 +82,9 @@ class RecapitulationController extends Controller
                 'tm.name',
                 'tm.unit',
                 'tm.qty as total_qty',
+                'djrd.price as daily_price',
                 DB::raw('COALESCE(SUM(djrd.qty), 0) as daily_qty'),
-                DB::raw('COALESCE(SUM(djrd.price), 0) as daily_price'),
+                // DB::raw('COALESCE(SUM(djrd.price), 0) as daily_price'),
                 DB::raw('COALESCE(SUM(djrd.price*djrd.qty), 0) as daily_total_price'),
                 DB::raw('CASE
                     WHEN COALESCE(SUM(tm.qty), 0) = COALESCE(SUM(djrd.qty), 0) THEN "BALANCE"
@@ -100,6 +101,7 @@ class RecapitulationController extends Controller
             ->groupBy('tm.name')
             ->groupBy('tm.unit')
             ->groupBy('tm.qty')
+            ->groupBy('djrd.price')
             ->get();
 
         if($type == 'J') {
@@ -146,42 +148,40 @@ class RecapitulationController extends Controller
         $projectData = M_Project::where('spk_number', $spk_number)->first();
         // Get material balance data with joins
         $balanceData = DB::table('projects as p')
-            ->join('t_materials as tm', 'tm.project_id', '=', 'p.id')
-            ->join('material_pickups as mp', 'mp.project_id', '=', 'p.id')
-            ->join('material_pickup_details as mpd', function($join) {
-                $join->on('mpd.material_pickup_id', '=', 'mp.id')
-                    ->on('mpd.code', '=', 'tm.code');
-            })
-            ->join('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
-            ->join('daily_material_report_details as dmrd', function($join) {
-                $join->on('dmrd.daily_report_id', '=', 'dmr.id')
-                    ->on('dmrd.code', '=', 'tm.code');
-            })
-            ->distinct()
-            ->select(
-                'tm.code',
-                'tm.name',
-                'tm.unit',
-                'tm.qty as total_qty',
-                DB::raw('COALESCE(SUM(mpd.qty), 0) as pickup_qty'),
-                DB::raw('COALESCE(SUM(dmrd.qty), 0) as daily_qty'),
-                DB::raw('COALESCE(SUM(dmrd.qty), 0) - COALESCE(SUM(mpd.qty), 0) as status'),
-                DB::raw('CASE
-                    WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "BALANCE"
-                    ELSE "RETURN"
-                END as notes')
-            )
-            ->when($spk_number, function ($q, $spk_number) {
-                $q->where('p.spk_number', 'like', "%$spk_number%");
-            })
-            ->when(request('date'), function ($q, $date) {
-                $q->where('p.date', 'like', "%$date%");
-            })
-            ->groupBy('tm.code')
-            ->groupBy('tm.name')
-            ->groupBy('tm.unit')
-            ->groupBy('tm.qty')
-            ->get();
+                ->join('t_materials as tm', 'tm.project_id', '=', 'p.id')
+                ->join('material_pickups as mp', 'mp.project_id', '=', 'p.id')
+                ->join('material_pickup_details as mpd', function($join) {
+                    $join->on('mpd.material_pickup_id', '=', 'mp.id')
+                        ->on('mpd.code', '=', 'tm.code');
+                })
+                ->join('daily_material_reports as dmr', 'dmr.project_id', '=', 'p.id')
+                ->join('daily_material_report_details as dmrd', function($join) {
+                    $join->on('dmrd.daily_report_id', '=', 'dmr.id')
+                        ->on('dmrd.code', '=', 'tm.code');
+                })
+                ->where('p.spk_number', 'like', '%%')
+                ->select(
+                    'tm.code',
+                    'tm.name',
+                    'tm.unit',
+                    'tm.qty as total_qty',
+                    DB::raw('(
+                        SELECT sum(s_mpd.qty)
+                        FROM material_pickup_details s_mpd
+                        WHERE s_mpd.code = tm.code
+                        GROUP BY s_mpd.code
+                    ) as pickup_qty'),
+                    DB::raw('(
+                        SELECT sum(s_dmrd.qty)
+                        FROM daily_material_report_details s_dmrd
+                        WHERE s_dmrd.code = tm.code
+                        GROUP BY s_dmrd.code
+                    ) as daily_qty'),
+                    DB::raw('COALESCE(SUM(dmrd.qty), 0) - COALESCE(SUM(mpd.qty), 0) as status'),
+                    DB::raw('CASE WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN "BALANCE" ELSE "RETURN" END as notes')
+                )
+                ->groupBy('tm.code', 'tm.name', 'tm.unit', 'tm.qty')
+                ->get();
 
         if($type == 'M') {
             // return view('admin-page.report.recapt_material', [

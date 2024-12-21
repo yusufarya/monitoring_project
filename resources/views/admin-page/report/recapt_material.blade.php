@@ -110,7 +110,7 @@
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->total_qty }}</td>
-                        <td style="text-align: right;">{{ $item->daily_qty }}</td>
+                        <td style="text-align: right;">{{ $item->pickup_qty }}</td>
                         <td style="text-align: right;">{{ $item->daily_qty }}</td>
                         <td style="text-align: right;">{{ $item->status }}</td>
                         <td style="text-align: center;">{{ $item->notes }}</td>
