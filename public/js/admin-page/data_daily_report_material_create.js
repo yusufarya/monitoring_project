@@ -91,6 +91,7 @@ function getMaterialOfProject() {
     var total_weight = 0
 
     let p_id = $('#daily_report_id').val()
+    let date_tr = formatDateToYMD($('#date').val())
 
     if(p_id) {
         $.ajax({
@@ -112,6 +113,7 @@ function getMaterialOfProject() {
                         // Your logic here for each item
                         console.log(dataMaterial)
                         html += `<tr>
+                                <td style="padding: 0 5px;">${date_tr}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.code}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.name}</td>
                                 <td style="padding: 0 5px;">${dataMaterial.unit}</td>
@@ -148,6 +150,7 @@ function getMaterialOfProject() {
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td style="text-align:center;"></td>
                     <th colspan="2" style="text-align:right;">Total Bobot Sampai Hari ini (%)</th>
                     <td style="text-align:right;">${total_weight.toFixed(2)}</td>
@@ -155,6 +158,7 @@ function getMaterialOfProject() {
                 </tr>`
     }
     html += `<tr>
+                <td style="padding: 0 5px;">${date_tr}</td>
                 <td><input type="text" class="form-control" id="code_material" name="code_material" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_material" name="name_material" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_material" name="unit_material" style="width: 100%;" readonly></td>
@@ -291,3 +295,11 @@ function deleteItemMaterial(id) {
     })
 }
 
+// Format the date to 'Y-m-d' format
+function formatDateToYMD(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}/${day}/${year}`;
+}

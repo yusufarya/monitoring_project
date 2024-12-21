@@ -54,6 +54,7 @@ function getJobOfDailyReport() {
     var total_weight = 0
 
     let p_id = $('#daily_report_id').val()
+    let date_tr = formatDateToYMD($('#date').val())
 
     if(p_id) {
         $.ajax({
@@ -75,6 +76,7 @@ function getJobOfDailyReport() {
                         // Your logic here for each item
                         console.log(dataJob)
                         html += `<tr>
+                                <td style="padding: 0 5px;">${date_tr}</td>
                                 <td style="padding: 0 5px;">${dataJob.code}</td>
                                 <td style="padding: 0 5px;">${dataJob.name}</td>
                                 <td style="padding: 0 5px;">${dataJob.unit}</td>
@@ -111,6 +113,7 @@ function getJobOfDailyReport() {
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td style="text-align:center;"></td>
                     <th colspan="2" style="text-align:right;">Total Bobot Sampai Hari ini (%)</th>
                     <td style="text-align:right;">${total_weight.toFixed(2)}</td>
@@ -119,6 +122,8 @@ function getJobOfDailyReport() {
     }
 
     html += `<tr>
+
+                <td style="padding: 0 5px;">${date_tr}</td>
                 <td><input type="text" class="form-control" id="code_job" name="code_job" style="width: 100%;" autocomplete="off"></td>
                 <td><input type="text" class="form-control" id="name_job" name="name_job" style="width: 100%;" readonly></td>
                 <td><input type="text" class="form-control" id="unit_job" name="unit_job" style="width: 100%;" readonly></td>
@@ -252,4 +257,13 @@ function deleteItemJob(id) {
             // console.log('All Headers on Error:', jqXHR.getAllResponseHeaders());
         }
     })
+}
+
+// Format the date to 'Y-m-d' format
+function formatDateToYMD(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${month}/${day}/${year}`;
 }

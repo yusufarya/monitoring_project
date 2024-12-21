@@ -135,6 +135,7 @@
                         <table class="table table-hover table-sm" id="table-material">
                             <thead>
                                 <tr>
+                                    <th style="width: 7%;">Tanggal</th>
                                     <th style="width: 7%;">Kode Material</th>
                                     <th>Nama Material</th>
                                     <th style="width: 5%;">Unit</th>

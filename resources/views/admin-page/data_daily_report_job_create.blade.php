@@ -125,6 +125,7 @@
                         <table class="table table-hover table-sm" id="table-job">
                             <thead>
                                 <tr>
+                                    <th style="width: 7%;">Tanggal</th>
                                     <th style="width: 7%;">Kode Pekerjaan</th>
                                     <th>Nama Pekerjaan</th>
                                     <th style="width: 5%;">Unit</th>
