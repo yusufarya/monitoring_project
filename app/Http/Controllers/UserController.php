@@ -49,7 +49,7 @@ class UserController extends Controller
         echo json_encode($data);
     }
 
-    function addFormUser() {
+    function addFormAdmin() {
         $filename = 'add_new_admin';
         $filename_script = getContentScript(true, $filename);
 
@@ -68,13 +68,13 @@ class UserController extends Controller
         // dd($request);
         $validatedData = $request->validate([
             'fullname'      => 'required|max:50',
-            'username'      => 'required|max:30|unique:admins',
+            'username'      => 'required|max:30|unique:users',
             'gender'        => 'required',
             'level_id'        => 'required',
             'place_of_birth'    => 'required|max:40',
             'date_of_birth'     => 'required',
             'no_telp'       => 'required|max:15',
-            'email'         => 'required|max:100|email|unique:admins',
+            'email'         => 'required|max:100|email|unique:users',
             'password'      => 'required|min:6|max:255',
             'images'     => 'image|file|max:1024',
         ]);
@@ -83,7 +83,7 @@ class UserController extends Controller
             $validatedData['images'] = $request->file('images')->store('profile-images');
         }
 
-        $validatedData['number'] = getLastNumberUser();
+        $validatedData['number'] = getLastNumberAdmin();
         $validatedData['address'] = $request['address'];
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['created_by'] = Auth::guard('web')->user()->username;

@@ -123,7 +123,7 @@ function getContentScript($isAdmin, $filename) {
     return $filename_script;
 }
 
-function getLastNumberUser() {
+function getLastNumberAdmin() {
 
     $lastCode = User::max('number');
 

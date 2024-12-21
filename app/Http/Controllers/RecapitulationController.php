@@ -81,7 +81,7 @@ class RecapitulationController extends Controller
                 'tm.code',
                 'tm.name',
                 'tm.unit',
-                DB::raw('COALESCE(SUM(tm.qty), 0) as total_qty'),
+                'tm.qty as total_qty',
                 DB::raw('COALESCE(SUM(djrd.qty), 0) as daily_qty'),
                 DB::raw('COALESCE(SUM(djrd.price), 0) as daily_price'),
                 DB::raw('COALESCE(SUM(djrd.price*djrd.qty), 0) as daily_total_price'),
