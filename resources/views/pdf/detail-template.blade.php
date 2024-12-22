@@ -102,6 +102,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Kode</th>
                     <th>Deskripsi</th>
                     <th style="text-align: center;">Satuan</th>
                     <th style="text-align: right;">Qty</th>
@@ -117,6 +118,7 @@
                 @foreach ($detail_j as $item)
                     <tr>
                         <td>{{ $no++ }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->qty }}</td>
@@ -129,6 +131,7 @@
                 @endforeach
 
                 <tr>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th colspan="3">Total Nilai Pekerjaan</th>
@@ -145,6 +148,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Kode</th>
                     <th>Deskripsi</th>
                     <th style="text-align: center;">Satuan</th>
                     <th style="text-align: right;">Qty</th>
@@ -160,6 +164,7 @@
                 @foreach ($detail_m as $item)
                     <tr>
                         <td>{{ $no++ }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->qty }}</td>
@@ -172,6 +177,7 @@
                 @endforeach
 
                 <tr>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th colspan="3">Total Nilai Material</th>

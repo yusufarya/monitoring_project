@@ -98,6 +98,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Kode</th>
                     <th>Deskripsi</th>
                     <th style="text-align: center;">Satuan</th>
                     <th style="text-align: right;">Qty</th>
@@ -115,6 +116,7 @@
                 @foreach ($detail_m as $item)
                     <tr>
                         <td>{{ $no++ }}</td>
+                        <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
                         <td style="text-align: right;">{{ $item->qty }}</td>
@@ -130,7 +132,9 @@
 
                 <tr>
                     <th></th>
-                    <th colspan="4">Total Nilai</th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3">Total Nilai</th>
                     <th style="text-align: right;">{{ number_format($totalValue,2, ',', '.') }}</th>
                     <th style="text-align: right;">{{ number_format($totalWeight,2, ',', '.') }}</th>
                 </tr>
