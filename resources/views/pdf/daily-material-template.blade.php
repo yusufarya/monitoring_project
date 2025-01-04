@@ -26,7 +26,7 @@
         }
         .header table td {
             color: #373737;
-            font-size: 14px;
+            font-size: 13px;
             padding: 5px 0px;
         }
 
@@ -49,7 +49,7 @@
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
-            font-size: 13px;
+            font-size: 11px;
         }
         .details th {
             background-color: #f4f4f4;
