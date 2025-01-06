@@ -83,6 +83,7 @@ class RecapitulationController extends Controller
                 'tm.unit',
                 'tm.qty as total_qty',
                 'djrd.price as daily_price',
+                'djrd.weight',
                 DB::raw('COALESCE(SUM(djrd.qty), 0) as daily_qty'),
                 // DB::raw('COALESCE(SUM(djrd.price), 0) as daily_price'),
                 DB::raw('COALESCE(SUM(djrd.price*djrd.qty), 0) as daily_total_price'),
@@ -208,19 +209,18 @@ class RecapitulationController extends Controller
         foreach ($allDatesArray as $date) {
         $formattedDate = date('d/m/Y', strtotime($date));
         $dateColumns .= "
-            (
+            COALESCE((
                 SELECT s_mpd.qty from material_pickup_details as s_mpd
                 JOIN material_pickups as s_mp ON s_mpd.material_pickup_id = s_mp.id AND s_mpd.code = tm.code
                 WHERE s_mp.date = '$date'
-            ) AS '{$formattedDate}_req',
-            (
+            ), 0) AS '{$formattedDate}_req',
+            COALESCE((
                 SELECT s_dmrd.qty from daily_material_report_details as s_dmrd
                 JOIN daily_material_reports as s_dmr ON s_dmrd.daily_report_id = s_dmr.id AND s_dmrd.code = tm.code
                 WHERE s_dmr.date = '$date'
-            ) AS '{$formattedDate}_rcv',
+            ), 0) AS '{$formattedDate}_rcv',
             ";
         }
-        // CASE WHEN mp.date = '$date' THEN mpd.qty ELSE 0 END AS '{$formattedDate}_req',
 
         // Build the final query
         $query = "
@@ -230,17 +230,48 @@ class RecapitulationController extends Controller
             tm.unit AS unit,
             tm.qty AS bom,
             $dateColumns
-            (
-                SELECT SUM(s_mpd.qty) from material_pickup_details as s_mpd
-                JOIN material_pickups as s_mp ON s_mpd.material_pickup_id = s_mp.id AND s_mpd.code = tm.code
-                GROUP BY s_mpd.code
-            ) -
+            COALESCE(
             (
                 SELECT SUM(s_dmrd.qty) from daily_material_report_details as s_dmrd
                 JOIN daily_material_reports as s_dmr ON s_dmrd.daily_report_id = s_dmr.id AND s_dmrd.code = tm.code
                 GROUP BY s_dmrd.code
-            ) as status,
-            CASE WHEN COALESCE(SUM(mpd.qty), 0) = COALESCE(SUM(dmrd.qty), 0) THEN 'BALANCE' ELSE 'RETURN' END as notes
+            ) - (
+                SELECT SUM(s_mpd.qty) from material_pickup_details as s_mpd
+                JOIN material_pickups as s_mp ON s_mpd.material_pickup_id = s_mp.id AND s_mpd.code = tm.code
+                GROUP BY s_mpd.code
+            ), 0) as status,
+            COALESCE((
+                SELECT SUM(s_dmrd.weight) from daily_material_report_details as s_dmrd
+                JOIN daily_material_reports as s_dmr ON s_dmrd.daily_report_id = s_dmr.id AND s_dmrd.code = tm.code
+                GROUP BY s_dmrd.code
+            ), 0) as weight,
+
+            CASE
+            WHEN
+                COALESCE((
+                    SELECT SUM(s_dmrd.qty) from daily_material_report_details as s_dmrd
+                    JOIN daily_material_reports as s_dmr ON s_dmrd.daily_report_id = s_dmr.id AND s_dmrd.code = tm.code
+                    GROUP BY s_dmrd.code
+                )) <
+                COALESCE((
+                    SELECT SUM(s_mpd.qty) from material_pickup_details as s_mpd
+                    JOIN material_pickups as s_mp ON s_mpd.material_pickup_id = s_mp.id AND s_mpd.code = tm.code
+                    GROUP BY s_mpd.code
+                ), 0) THEN 'RETURN'
+            WHEN
+                COALESCE((
+                    SELECT SUM(s_dmrd.qty) from daily_material_report_details as s_dmrd
+                    JOIN daily_material_reports as s_dmr ON s_dmrd.daily_report_id = s_dmr.id AND s_dmrd.code = tm.code
+                    GROUP BY s_dmrd.code
+                )) >
+                COALESCE((
+                    SELECT SUM(s_mpd.qty) from material_pickup_details as s_mpd
+                    JOIN material_pickups as s_mp ON s_mpd.material_pickup_id = s_mp.id AND s_mpd.code = tm.code
+                    GROUP BY s_mpd.code
+                ), 0) THEN 'RECEIVE'
+                ELSE 'BALANCE'
+            END as notes
+
         FROM
             projects p
         JOIN
@@ -263,11 +294,6 @@ class RecapitulationController extends Controller
         $balanceData = DB::select($query);
 
         if($type == 'M') {
-            // return view('admin-page.report.recapt_material', [
-            //     'title' => 'Rekap Data Material',
-            //     'header' => $projectData,
-            //     'detail' => $balanceData,
-            // ]);
 
             $data = [
                 'title' => 'Rekap Data Material',
@@ -276,7 +302,8 @@ class RecapitulationController extends Controller
             ];
 
 
-            $pdf = Pdf::loadView('admin-page.report.recapt_material', $data);
+            $pdf = Pdf::loadView('admin-page.report.recapt_material', $data)
+                        ->setPaper('a4', 'landscape');
 
             $spk_number = str_replace('/', '_', $projectData->spk_number);
 

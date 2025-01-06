@@ -109,30 +109,32 @@
                     $allDatesArray = $allDates->values()->toArray();
                 @endphp
                 <tr>
-                    <th rowspan="2">No</th>
-                    <th rowspan="2">Kode</th>
+                    <th rowspan="2" style="width: 2%;">No</th>
+                    <th rowspan="2" style="width: 5%;">Kode</th>
                     <th rowspan="2">Deskripsi</th>
-                    <th rowspan="2" style="text-align: center;">Satuan</th>
-                    <th rowspan="2" style="text-align: right;">BOM</th>
+                    <th rowspan="2" style="text-align: center; width: 30px;">Satuan</th>
+                    <th rowspan="2" style="text-align: center; width: 30px;">BOM</th>
                     @foreach ($allDatesArray as $date)
                     @php
                         $formattedDate = date('d/m/Y', strtotime($date));
                     @endphp
-                        <th style="text-align: center;" colspan="2">{{$formattedDate}}</th>
+                        <th style="text-align: center; width: 100px;" colspan="2">{{$formattedDate}}</th>
                     @endforeach
-                    <th rowspan="2" style="text-align: center;">Status</th>
-                    <th rowspan="2" style="text-align: center;">Ket.</th>
+                    <th rowspan="2" style="text-align: center; width: 30px;">Status</th>
+                    <th rowspan="2" style="text-align: center; width: 50px;">Ket.</th>
+                    <th rowspan="2" style="text-align: right; width: 30px;">Bobot (%)</th>
                 </tr>
                 <tr>
                     @foreach ($allDatesArray as $date)
-                        <th>req</th>
-                        <th>rcv</th>
+                        <th style="text-align: center; width: 30px;">diambil</th>
+                        <th style="text-align: center; width: 30px;">install</th>
                     @endforeach
                 </tr>
             </thead>
             <tbody>
                 @php
                     $no = 1;
+                    $totalWeight = 0;
                 @endphp
                 @foreach ($detail as $item)
                     <tr>
@@ -140,22 +142,31 @@
                         <td>{{ $item->code }}</td>
                         <td>{{ $item->name }}</td>
                         <td style="text-align: center;">{{ $item->unit }}</td>
-                        <td style="text-align: right;">{{ $item->bom }}</td>
+                        <td style="text-align: center;">{{ $item->bom }}</td>
                         @foreach ($allDatesArray as $date)
                             @php
                                 $formattedDate = date('d/m/Y', strtotime($date));
                             @endphp
-                            <td style="text-align: right;">
+                            <td style="text-align: center;">
                                 {{ $item->{$formattedDate . '_req'} ?? 0 }}
                             </td>
-                            <td style="text-align: right;">
+                            <td style="text-align: center;">
                                 {{ $item->{$formattedDate . '_rcv'} ?? 0 }}
                             </td>
                         @endforeach
                         <td style="text-align: center;">{{ $item->status }}</td>
                         <td style="text-align: center;">{{ $item->notes }}</td>
+                        <td style="text-align: right;">{{ number_format($item->weight,2) }}</td>
                     </tr>
+                    @php
+                        $totalWeight+=$item->weight;
+                    @endphp
                 @endforeach
+                <tr>
+                    <th colspan="11"></th>
+                    <th colspan="2">Nilai Total Bobot</th>
+                    <th style="text-align: right;">{{ $totalWeight }}</th>
+                </tr>
             </tbody>
         </table>
     @endif

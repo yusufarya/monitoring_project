@@ -97,13 +97,14 @@
                     <th style="text-align: right;">Terpasang</th>
                     <th style="text-align: right;">Harga</th>
                     <th style="text-align: right;">Jumlah Harga</th>
-                    {{-- <th style="text-align: center;">Ket.</th> --}}
+                    <th style="text-align: center;">Bobot (%)</th>
                 </tr>
             </thead>
             <tbody>
                 @php
                     $no = 1;
                     $grand_total_price = 0;
+                    $total_weight = 0;
                     @endphp
                 @foreach ($detail as $item)
                 @php
@@ -117,18 +118,17 @@
                         <td style="text-align: right;">{{ $item->daily_qty }}</td>
                         <td style="text-align: right;">{{ number_format($item->daily_price,2, ',', '.') }}</td>
                         <td style="text-align: right;">{{ number_format($item->daily_total_price,2, ',', '.') }}</td>
-                        {{-- <td style="text-align: center;">{{ $item->notes }}</td> --}}
+                        <td style="text-align: right;">{{ number_format($item->weight,2) }}</td>
                     </tr>
                 @endforeach
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: right;">{{ number_format($grand_total_price,2, ',', '.') }}</td>
-                    {{-- <td style="text-align: center;">{{ $item->notes }}</td> --}}
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="2">Total Nilai</th>
+                    <th style="text-align: right;">{{ number_format($grand_total_price,2, ',', '.') }}</th>
+                    <th style="text-align: right;">{{ $total_weight+=$item->weight }}</th>
                 </tr>
             </tbody>
         </table>
