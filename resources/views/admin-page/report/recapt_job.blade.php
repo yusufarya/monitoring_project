@@ -120,6 +120,9 @@
                         <td style="text-align: right;">{{ number_format($item->daily_total_price,2, ',', '.') }}</td>
                         <td style="text-align: right;">{{ number_format($item->weight,2) }}</td>
                     </tr>
+                    @php
+                        $total_weight+=$item->weight;
+                    @endphp
                 @endforeach
                 <tr>
                     <th></th>
@@ -128,7 +131,7 @@
                     <th></th>
                     <th colspan="2">Total Nilai</th>
                     <th style="text-align: right;">{{ number_format($grand_total_price,2, ',', '.') }}</th>
-                    <th style="text-align: right;">{{ $total_weight+=$item->weight }}</th>
+                    <th style="text-align: right;">{{ number_format($total_weight,2) }}</th>
                 </tr>
             </tbody>
         </table>

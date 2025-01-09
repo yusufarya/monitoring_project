@@ -134,7 +134,7 @@
             <tbody>
                 @php
                     $no = 1;
-                    $totalWeight = 0;
+                    $total_weight = 0;
                 @endphp
                 @foreach ($detail as $item)
                     <tr>
@@ -159,13 +159,13 @@
                         <td style="text-align: right;">{{ number_format($item->weight,2) }}</td>
                     </tr>
                     @php
-                        $totalWeight+=$item->weight;
+                        $total_weight+=$item->weight;
                     @endphp
                 @endforeach
                 <tr>
                     <th colspan="11"></th>
                     <th colspan="2">Nilai Total Bobot</th>
-                    <th style="text-align: right;">{{ $totalWeight }}</th>
+                    <th style="text-align: right;">{{ number_format($total_weight,2) }}</th>
                 </tr>
             </tbody>
         </table>
